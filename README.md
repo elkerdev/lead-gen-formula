@@ -63,10 +63,39 @@ vercel --prod
 To test locally:
 
 1. Create a `.env` file (copy from `.env.example`)
+   ```bash
+   cp .env.example .env
+   ```
+
 2. Add your Claude API key to `.env`
-3. Install Vercel CLI: `npm install -g vercel`
-4. Run: `vercel dev`
-5. Open `http://localhost:3000/marketing-guide.html`
+   ```
+   CLAUDE_API_KEY=sk-ant-api03-your-key-here
+   ```
+
+3. Install dependencies
+   ```bash
+   yarn install
+   # or
+   npm install
+   ```
+
+4. Run the development server
+   ```bash
+   yarn dev
+   # or
+   npm run dev
+   ```
+
+5. Open http://localhost:3000/marketing-guide.html
+
+### Alternative: Using Vercel CLI
+
+If you prefer to use Vercel's development server:
+
+```bash
+npm install -g vercel
+vercel dev
+```
 
 ## Project Structure
 
