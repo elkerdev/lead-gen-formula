@@ -197,9 +197,9 @@
         .option-card.selected::before {
             content: "";
             position: absolute;
-            right: 26px;
-            top: 50%;
-            transform: translateY(-50%) rotate(45deg);
+            right: 28px;
+            top: 48%;
+            transform: translateY(-48%) rotate(45deg);
             width: 5px;
             height: 10px;
             border: solid white;
@@ -549,7 +549,7 @@
 
         <div class="explainer">
             <h2>How this works</h2>
-            <p>This tool helps you create a tailored marketing strategy for Elker webinars and events. Answer 7 questions about your event, audience, and resources, and receive a complete marketing plan with messaging, channel recommendations, and timelines.</p>
+            <p>This tool helps you create a tailored marketing strategy for Elker webinars and events. Answer 6 questions about your event, audience, and resources, and receive a complete marketing plan with messaging, channel recommendations, and timelines.</p>
         </div>
 
         <div class="content">
@@ -838,65 +838,8 @@
                 </div>
             </div>
 
-            <!-- Step 5: Who already knows you? -->
+            <!-- Step 5: What can you actually do? -->
             <div class="step" data-step="5">
-                <div class="question">Who already knows about you or has shown interest?</div>
-                <div class="helper-text">
-                    Warm contacts are valuable. Select all that apply - we'll prioritize reaching out to people who already know you.
-                </div>
-                <div class="options" id="warm-audience-options">
-                    <div class="checkbox-option" onclick="toggleCheckbox(this)">
-                        <input type="checkbox" id="warm-customers">
-                        <div class="label-content">
-                            <strong>Existing customers</strong>
-                            <span>People who already use our product or service</span>
-                        </div>
-                    </div>
-                    <div class="checkbox-option" onclick="toggleCheckbox(this)">
-                        <input type="checkbox" id="warm-past">
-                        <div class="label-content">
-                            <strong>Past prospects or demo requests</strong>
-                            <span>People who inquired but haven't bought yet</span>
-                        </div>
-                    </div>
-                    <div class="checkbox-option" onclick="toggleCheckbox(this)">
-                        <input type="checkbox" id="warm-email">
-                        <div class="label-content">
-                            <strong>Email subscribers or newsletter list</strong>
-                            <span>People on our mailing list</span>
-                        </div>
-                    </div>
-                    <div class="checkbox-option" onclick="toggleCheckbox(this)">
-                        <input type="checkbox" id="warm-partners">
-                        <div class="label-content">
-                            <strong>Partner and co-host contacts</strong>
-                            <span>People from our partners' networks who might share this</span>
-                        </div>
-                    </div>
-                    <div class="checkbox-option" onclick="toggleCheckbox(this)">
-                        <input type="checkbox" id="warm-linkedin">
-                        <div class="label-content">
-                            <strong>LinkedIn connections</strong>
-                            <span>People we're connected with on LinkedIn</span>
-                        </div>
-                    </div>
-                    <div class="checkbox-option" onclick="toggleCheckbox(this)">
-                        <input type="checkbox" id="warm-none">
-                        <div class="label-content">
-                            <strong>We're starting from scratch</strong>
-                            <span>We don't have an existing audience to tap into</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="button-group">
-                    <button class="btn btn-secondary" onclick="prevStep()">Back</button>
-                    <button class="btn btn-primary" onclick="nextStep()">Next</button>
-                </div>
-            </div>
-
-            <!-- Step 6: What can you actually do? -->
-            <div class="step" data-step="6">
                 <div class="question">What can you actually commit to doing?</div>
                 <div class="helper-text">
                     Be honest about time and resources. It's better to do 2 things well than 10 things poorly.
@@ -952,8 +895,8 @@
                 </div>
             </div>
 
-            <!-- Step 7: Timeline and context -->
-            <div class="step" data-step="7">
+            <!-- Step 6: Timeline and context -->
+            <div class="step" data-step="6">
                 <div class="question">When is this happening?</div>
                 <div class="helper-text">
                     When is the webinar or event taking place?
@@ -1012,7 +955,7 @@
 
     <script>
         let currentStep = 1;
-        const totalSteps = 7;
+        const totalSteps = 6;
         const selections = {
             companyBackground: "Elker is a workplace reporting and case management platform that enables employees to anonymously report concerns about misconduct, safety issues, and other workplace problems. We help organizations transform from reactive (responding to known incidents) to proactive (identifying emerging risks early through employee feedback). Our platform combines anonymous reporting, efficient case management, and real-time analytics. We serve HR teams, legal departments, compliance officers, WHS managers, and integrity teams across businesses, universities, schools, government agencies, and aged care providers."
         };
@@ -1085,20 +1028,13 @@
                     }
                     return true;
                 case 5:
-                    const warmAudience = document.querySelectorAll('#warm-audience-options .checkbox-option.selected');
-                    if (warmAudience.length === 0) {
-                        alert('Please indicate who already knows you (even if it\'s "starting from scratch")');
-                        return false;
-                    }
-                    return true;
-                case 6:
                     const capabilities = document.querySelectorAll('#capability-options .checkbox-option.selected');
                     if (capabilities.length === 0) {
                         alert('Please select at least one thing you can commit to doing');
                         return false;
                     }
                     return true;
-                case 7:
+                case 6:
                     const timeline = document.getElementById('timeline').value;
                     if (!timeline) {
                         alert('Please select when your event is happening');
@@ -1132,20 +1068,13 @@
                     selections.goal = document.querySelector('.option-card.selected[data-group="goal"]')?.querySelector('h4').textContent;
                     break;
                 case 5:
-                    selections.warmAudience = Array.from(document.querySelectorAll('#warm-audience-options .checkbox-option.selected'))
-                        .map(el => ({
-                            type: el.querySelector('strong').textContent,
-                            description: el.querySelector('span').textContent
-                        }));
-                    break;
-                case 6:
                     selections.capabilities = Array.from(document.querySelectorAll('#capability-options .checkbox-option.selected'))
                         .map(el => ({
                             capability: el.querySelector('strong').textContent,
                             description: el.querySelector('span').textContent
                         }));
                     break;
-                case 7:
+                case 6:
                     selections.timeline = document.getElementById('timeline').value;
                     selections.pastExperience = document.getElementById('past-experience').value.trim();
                     selections.constraints = document.getElementById('constraints').value.trim();
@@ -1164,26 +1093,6 @@
 
         function toggleCheckbox(element) {
             const checkbox = element.querySelector('input[type="checkbox"]');
-
-            // Special handling for "starting from scratch" option
-            if (checkbox.id === 'warm-none') {
-                if (!checkbox.checked) {
-                    // Deselect all other warm audience options
-                    document.querySelectorAll('#warm-audience-options .checkbox-option').forEach(opt => {
-                        if (opt !== element) {
-                            opt.querySelector('input').checked = false;
-                            opt.classList.remove('selected');
-                        }
-                    });
-                }
-            } else if (element.closest('#warm-audience-options')) {
-                // Deselect "starting from scratch" if selecting any other option
-                const noneOption = document.getElementById('warm-none');
-                if (noneOption.checked) {
-                    noneOption.checked = false;
-                    noneOption.closest('.checkbox-option').classList.remove('selected');
-                }
-            }
 
             checkbox.checked = !checkbox.checked;
             element.classList.toggle('selected', checkbox.checked);
@@ -1369,10 +1278,10 @@ Return ONLY the HTML divs, no other text.`;
         }
 
         async function generateStrategy() {
-            if (!validateStep(7)) {
+            if (!validateStep(6)) {
                 return;
             }
-            saveStepData(7);
+            saveStepData(6);
 
             // Hide current step
             document.querySelector(`.step[data-step="${currentStep}"]`).classList.remove('active');
@@ -1440,9 +1349,6 @@ Job roles and departments: ${sel.audiences.map(a => a.role).join(', ')}
 **Desired action:** ${sel.action}
 **Ultimate goal:** ${sel.goal}
 
-**Existing warm audiences they can tap:**
-${sel.warmAudience.map(w => w.type).join(', ')}
-
 **What they can actually do (capabilities):**
 ${sel.capabilities.map(c => c.capability).join(', ')}
 
@@ -1465,7 +1371,7 @@ Create a marketing strategy that:
    - Opening sentence for 1-on-1 outreach
    Make these copy-paste ready. Wrap each in a div with class="ai-content" and add a copy button.
 
-2. **PRIORITIZED ACTION PLAN** - List exactly what to do, in priority order, based on their capabilities and warm audiences. For each action:
+2. **PRIORITIZED ACTION PLAN** - List exactly what to do, in priority order, based on their capabilities and target audiences. For each action:
    - Why this is high, medium, or low priority for their specific situation
    - Exactly how to do it (step by step)
    - How long it will take
@@ -1479,7 +1385,7 @@ Create a marketing strategy that:
 
 4. **WEEK-BY-WEEK TIMELINE** - Given ${daysUntil} days until event, break down what to do each week. Be specific about dates.
 
-5. **REALISTIC SUCCESS METRICS** - Based on their warm audience size and capabilities, what numbers should they expect? Give ranges (conservative to optimistic).
+5. **REALISTIC SUCCESS METRICS** - Based on their target audience and capabilities, what numbers should they expect? Give ranges (conservative to optimistic).
 
 6. **NEXT 3 ACTIONS** - What are the literal next 3 things they should do today? Be incredibly specific.
 
@@ -1489,7 +1395,7 @@ Create a marketing strategy that:
 - No jargon - if you must use marketing terms, explain them
 - Give examples for everything
 - When suggesting email or social content, write actual templates they can copy
-- Focus heavily on targeted warm audiences
+- Focus on targeted outreach to the specific audiences they identified
 - If they have partners, emphasize leveraging partner credibility and lists
 - Be honest and realistic about what will and won't work given their constraints
 
