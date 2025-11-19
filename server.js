@@ -36,7 +36,7 @@ app.post('/api/generate-strategy', async (req, res) => {
       },
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
-        max_tokens: maxTokens || 8000,
+        max_tokens: maxTokens || 16000,
         messages: [{
           role: 'user',
           content: prompt
