@@ -1823,17 +1823,11 @@ CRITICAL: Return ONLY the JSON object. No markdown code blocks, no explanatory t
             if (!timeline || timeline.length === 0) return '';
 
             const rows = timeline.map(item => {
-                const template = allTemplates[item.templateId];
-                const copyButton = template
-                    ? `<button class="copy-btn" onclick="copyTemplateById('${item.templateId}')">Copy</button>`
-                    : '';
-
                 return `
                     <tr>
                         <td>${item.when}</td>
                         <td>${item.action}</td>
                         <td>${item.platform}</td>
-                        <td>${copyButton}</td>
                     </tr>
                 `;
             }).join('');
@@ -1851,7 +1845,6 @@ CRITICAL: Return ONLY the JSON object. No markdown code blocks, no explanatory t
                                     <th>When</th>
                                     <th>Action Item</th>
                                     <th>Target Platform</th>
-                                    <th>Copy Template</th>
                                 </tr>
                             </thead>
                             <tbody>
