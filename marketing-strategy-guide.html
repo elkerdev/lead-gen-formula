@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elker Marketing Strategy Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .content {
+            padding: 40px 30px;
+        }
+
+        .question-section {
+            margin-bottom: 35px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+        }
+
+        .question-section h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .question-section p {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 0.95em;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        .option.selected {
+            border-color: #667eea;
+            background: #e8eeff;
+        }
+
+        .option input[type="checkbox"],
+        .option input[type="radio"] {
+            margin-right: 12px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .option label {
+            cursor: pointer;
+            flex: 1;
+            font-size: 1em;
+        }
+
+        .generate-btn {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .generate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .generate-btn:active {
+            transform: translateY(0);
+        }
+
+        .recommendations {
+            display: none;
+            margin-top: 40px;
+            padding: 30px;
+            background: #f0f9ff;
+            border-radius: 12px;
+            border: 2px solid #667eea;
+        }
+
+        .recommendations.show {
+            display: block;
+        }
+
+        .recommendations h2 {
+            color: #667eea;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 15px;
+        }
+
+        .recommendation-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .recommendation-section h3 {
+            color: #764ba2;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .recommendation-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .recommendation-section li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .recommendation-section li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .metric-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+        }
+
+        .metric-box strong {
+            color: #856404;
+        }
+
+        .priority-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: #667eea;
+            color: white;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .warning-box {
+            background: #fff3f3;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+            color: #721c24;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.6em;
+            }
+
+            .content {
+                padding: 25px 20px;
+            }
+
+            .question-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Marketing Strategy Guide</h1>
+            <p>Answer these questions to get your recommended marketing approach</p>
+        </header>
+
+        <div class="content">
+            <!-- Question 1 -->
+            <div class="question-section">
+                <h3>1. What is the primary goal?</h3>
+                <p>Choose the main objective (you can select multiple, but be realistic)</p>
+                <div class="options">
+                    <div class="option" onclick="toggleCheckbox(this)">
+                        <input type="checkbox" id="goal-demos" value="demos">
+                        <label for="goal-demos">Generate demo requests (direct pipeline)</label>
+                    </div>
+                    <div class="option" onclick="toggleCheckbox(this)">
+                        <input type="checkbox" id="goal-brand" value="brand">
+                        <label for="goal-brand">Brand positioning & awareness</label>
+                    </div>
+                    <div class="option" onclick="toggleCheckbox(this)">
+                        <input type="checkbox" id="goal-partners" value="partners">
+                        <label for="goal-partners">Strengthen partner relationships</label>
+                    </div>
+                    <div class="option" onclick="toggleCheckbox(this)">
+                        <input type="checkbox" id="goal-pipeline" value="pipeline">
+                        <label for="goal-pipeline">Fill top-of-funnel pipeline (long-term nurture)</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question-section">
+                <h3>2. Who are you trying to attract for demos?</h3>
+                <p>Select your primary target audiences (max 2-3 for focus)</p>
+                <div class="options">
+                    <div class="option" onclick="toggleCheckbox(this)">
+                        <input type="checkbox" id="audience-legal" value="legal">
+                        <label for="audience-legal">Legal / Governance leads</label>
+                    </div>
+                    <div class="option" onclick="toggleCheckbox(this)">
+                        <input type="checkbox" id="audience-hr" value="hr">
+                        <label for="audience-hr">HR / People & Culture</label>
+                    </div>
+                    <div class="option" onclick="toggleCheckbox(this)">
+                        <input type="checkbox" id="audience-safety" value="safety">
+                        <label for="audience-safety">WHS / Safety</label>
+                    </div>
+                    <div class="option" onclick="toggleCheckbox(this)">
+                        <input type="checkbox" id="audience-education" value="education">
+                        <label for="audience-education">Higher education integrity teams</label>
+                    </div>
+                    <div class="option" onclick="toggleCheckbox(this)">
+                        <input type="checkbox" id="audience-social" value="social">
+                        <label for="audience-social">Social services safeguarding</label>
+                    </div>
+                    <div class="option" onclick="toggleCheckbox(this)">
+                        <input type="checkbox" id="audience-leadership" value="leadership">
+                        <label for="audience-leadership">Senior leadership (CEO/COO)</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question-section">
+                <h3>3. What size organizations are most valuable?</h3>
+                <p>Select the org sizes where demos convert best</p>
+                <div class="options">
+                    <div class="option" onclick="toggleRadio(this, 'orgsize')">
+                        <input type="radio" name="orgsize" id="size-small" value="small">
+                        <label for="size-small">Under 200 employees</label>
+                    </div>
+                    <div class="option" onclick="toggleRadio(this, 'orgsize')">
+                        <input type="radio" name="orgsize" id="size-medium" value="medium">
+                        <label for="size-medium">200-1,000 employees</label>
+                    </div>
+                    <div class="option" onclick="toggleRadio(this, 'orgsize')">
+                        <input type="radio" name="orgsize" id="size-large" value="large">
+                        <label for="size-large">1,000-5,000 employees</label>
+                    </div>
+                    <div class="option" onclick="toggleRadio(this, 'orgsize')">
+                        <input type="radio" name="orgsize" id="size-enterprise" value="enterprise">
+                        <label for="size-enterprise">5,000+ employees</label>
+                    </div>
+                    <div class="option" onclick="toggleRadio(this, 'orgsize')">
+                        <input type="radio" name="orgsize" id="size-govt" value="govt">
+                        <label for="size-govt">Government</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question-section">
+                <h3>4. What should the brand position emphasize?</h3>
+                <p>Choose your primary positioning angle</p>
+                <div class="options">
+                    <div class="option" onclick="toggleRadio(this, 'position')">
+                        <input type="radio" name="position" id="pos-trust" value="trust">
+                        <label for="pos-trust">Trusted experts aligned with major brands</label>
+                    </div>
+                    <div class="option" onclick="toggleRadio(this, 'position')">
+                        <input type="radio" name="position" id="pos-innovation" value="innovation">
+                        <label for="pos-innovation">Innovation and modernization</label>
+                    </div>
+                    <div class="option" onclick="toggleRadio(this, 'position')">
+                        <input type="radio" name="position" id="pos-compliance" value="compliance">
+                        <label for="pos-compliance">Compliance & risk reduction</label>
+                    </div>
+                    <div class="option" onclick="toggleRadio(this, 'position')">
+                        <input type="radio" name="position" id="pos-culture" value="culture">
+                        <label for="pos-culture">Culture and safety uplift</label>
+                    </div>
+                    <div class="option" onclick="toggleRadio(this, 'position')">
+                        <input type="radio" name="position" id="pos-simplicity" value="simplicity">
+                        <label for="pos-simplicity">Simplicity and user experience</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question-section">
+                <h3>5. What marketing channels will you activate?</h3>
+                <p>Select the channels you're willing to resource</p>
+                <div class="options">
+                    <div class="option" onclick="toggleCheckbox(this)">
+                        <input type="checkbox" id="channel-linkedin-organic" value="linkedin-organic">
+                        <label for="channel-linkedin-organic">Organic LinkedIn posts</label>
+                    </div>
+                    <div class="option" onclick="toggleCheckbox(this)">
+                        <input type="checkbox" id="channel-linkedin-paid" value="linkedin-paid">
+                        <label for="channel-linkedin-paid">Paid LinkedIn ads</label>
+                    </div>
+                    <div class="option" onclick="toggleCheckbox(this)">
+                        <input type="checkbox" id="channel-email" value="email">
+                        <label for="channel-email">Email campaign (CRM list)</label>
+                    </div>
+                    <div class="option" onclick="toggleCheckbox(this)">
+                        <input type="checkbox" id="channel-partner" value="partner">
+                        <label for="channel-partner">Partner co-marketing (their lists)</label>
+                    </div>
+                    <div class="option" onclick="toggleCheckbox(this)">
+                        <input type="checkbox" id="channel-direct" value="direct">
+                        <label for="channel-direct">Direct LinkedIn outreach to high-value leads</label>
+                    </div>
+                    <div class="option" onclick="toggleCheckbox(this)">
+                        <input type="checkbox" id="channel-landing" value="landing">
+                        <label for="channel-landing">Dedicated landing page</label>
+                    </div>
+                    <div class="option" onclick="toggleCheckbox(this)">
+                        <input type="checkbox" id="channel-content" value="content">
+                        <label for="channel-content">One-pagers tailored to each sector</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="question-section">
+                <h3>6. What action do you want people to take?</h3>
+                <p>Choose your primary call-to-action</p>
+                <div class="options">
+                    <div class="option" onclick="toggleRadio(this, 'cta')">
+                        <input type="radio" name="cta" id="cta-register" value="register">
+                        <label for="cta-register">Register for webinar/event</label>
+                    </div>
+                    <div class="option" onclick="toggleRadio(this, 'cta')">
+                        <input type="radio" name="cta" id="cta-demo" value="demo">
+                        <label for="cta-demo">Request a demo</label>
+                    </div>
+                    <div class="option" onclick="toggleRadio(this, 'cta')">
+                        <input type="radio" name="cta" id="cta-call" value="call">
+                        <label for="cta-call">Book a call</label>
+                    </div>
+                    <div class="option" onclick="toggleRadio(this, 'cta')">
+                        <input type="radio" name="cta" id="cta-download" value="download">
+                        <label for="cta-download">Download resource/guide</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="question-section">
+                <h3>7. What's your follow-up pathway?</h3>
+                <p>How will you nurture leads after initial engagement?</p>
+                <div class="options">
+                    <div class="option" onclick="toggleCheckbox(this)">
+                        <input type="checkbox" id="followup-auto" value="auto">
+                        <label for="followup-auto">Automated nurture sequence</label>
+                    </div>
+                    <div class="option" onclick="toggleCheckbox(this)">
+                        <input type="checkbox" id="followup-manual" value="manual">
+                        <label for="followup-manual">Manual outreach to high-value attendees</label>
+                    </div>
+                    <div class="option" onclick="toggleCheckbox(this)">
+                        <input type="checkbox" id="followup-partner" value="partner">
+                        <label for="followup-partner">Partner follow-up coordination</label>
+                    </div>
+                    <div class="option" onclick="toggleCheckbox(this)">
+                        <input type="checkbox" id="followup-content" value="content">
+                        <label for="followup-content">Content series (case studies, guides)</label>
+                    </div>
+                </div>
+            </div>
+
+            <button class="generate-btn" onclick="generateRecommendations()">
+                Generate Your Marketing Approach
+            </button>
+
+            <div id="recommendations" class="recommendations">
+                <!-- Recommendations will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleCheckbox(element) {
+            const checkbox = element.querySelector('input[type="checkbox"]');
+            checkbox.checked = !checkbox.checked;
+            element.classList.toggle('selected', checkbox.checked);
+        }
+
+        function toggleRadio(element, name) {
+            const radio = element.querySelector('input[type="radio"]');
+            radio.checked = true;
+
+            // Remove selected class from all radio options in this group
+            document.querySelectorAll(`input[name="${name}"]`).forEach(r => {
+                r.closest('.option').classList.remove('selected');
+            });
+
+            element.classList.add('selected');
+        }
+
+        function getSelectedValues(selector) {
+            return Array.from(document.querySelectorAll(selector))
+                .filter(input => input.checked)
+                .map(input => input.value);
+        }
+
+        function generateRecommendations() {
+            const goals = getSelectedValues('#goal-demos, #goal-brand, #goal-partners, #goal-pipeline');
+            const audiences = getSelectedValues('#audience-legal, #audience-hr, #audience-safety, #audience-education, #audience-social, #audience-leadership');
+            const orgSize = getSelectedValues('input[name="orgsize"]:checked')[0];
+            const position = getSelectedValues('input[name="position"]:checked')[0];
+            const channels = getSelectedValues('#channel-linkedin-organic, #channel-linkedin-paid, #channel-email, #channel-partner, #channel-direct, #channel-landing, #channel-content');
+            const cta = getSelectedValues('input[name="cta"]:checked')[0];
+            const followup = getSelectedValues('#followup-auto, #followup-manual, #followup-partner, #followup-content');
+
+            let html = '<h2>Your Recommended Marketing Approach</h2>';
+
+            // Generate Strategic Summary
+            html += '<div class="recommendation-section">';
+            html += '<h3>Strategic Summary</h3>';
+
+            const isDemoFocused = goals.includes('demos');
+            const isBrandFocused = goals.includes('brand');
+
+            if (isDemoFocused && audiences.length > 3) {
+                html += '<div class="warning-box"><strong>Warning:</strong> You selected demo generation as a goal but chose too many audiences. Focus on 1-2 audiences for better conversion.</div>';
+            }
+
+            if (isDemoFocused) {
+                html += '<p><strong>Primary Goal:</strong> Generate qualified demo requests</p>';
+                html += '<p><strong>Recommended Focus:</strong> High-touch, targeted approach with direct outreach</p>';
+            } else if (isBrandFocused) {
+                html += '<p><strong>Primary Goal:</strong> Brand positioning and awareness</p>';
+                html += '<p><strong>Recommended Focus:</strong> Broader reach through partner alignment and thought leadership</p>';
+            }
+
+            html += '</div>';
+
+            // Target Audience Messaging
+            html += '<div class="recommendation-section">';
+            html += '<h3>Target Audience & Messaging</h3>';
+
+            const audienceMessages = {
+                legal: {
+                    message: 'Reduce exposure, strengthen governance pathways, defensible decision-making',
+                    channels: ['LinkedIn', 'Hall & Wilcox newsletters', 'Legal associations']
+                },
+                hr: {
+                    message: 'Improve culture, show early insights, reduce investigation load',
+                    channels: ['LinkedIn', 'AHRI newsletters', 'HR groups']
+                },
+                safety: {
+                    message: 'Faster WHS reporting, better compliance, less manual work',
+                    channels: ['LinkedIn', 'WHS associations', "EML's client lists"]
+                },
+                education: {
+                    message: 'Student misconduct management, integrity processes, compliance tracking',
+                    channels: ['Peak bodies', 'LinkedIn', 'Email outreach']
+                },
+                social: {
+                    message: 'Safeguarding vulnerable populations, transparent reporting, risk management',
+                    channels: ['CatholicCare', 'Anglicare', 'ACBC networks', 'Email']
+                },
+                leadership: {
+                    message: 'Organizational risk reduction, culture transformation, operational efficiency',
+                    channels: ['Direct outreach', 'LinkedIn', 'Partner referrals']
+                }
+            };
+
+            if (audiences.length === 0) {
+                html += '<div class="warning-box"><strong>No audience selected!</strong> You must identify your target audience to create effective messaging.</div>';
+            } else {
+                audiences.forEach(audience => {
+                    const info = audienceMessages[audience];
+                    html += `<div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px;">`;
+                    html += `<strong style="text-transform: capitalize;">${audience.replace('-', ' / ')}</strong>`;
+                    html += `<p style="margin: 10px 0;"><em>"${info.message}"</em></p>`;
+                    html += `<p style="font-size: 0.9em;"><strong>Best channels:</strong> ${info.channels.join(', ')}</p>`;
+                    html += `</div>`;
+                });
+            }
+
+            html += '</div>';
+
+            // Channel Strategy
+            html += '<div class="recommendation-section">';
+            html += '<h3>Recommended Channel Strategy <span class="priority-badge">PRIORITY</span></h3>';
+
+            if (channels.length === 0) {
+                html += '<div class="warning-box"><strong>No channels selected!</strong> Choose at least 2-3 channels to activate.</div>';
+            } else {
+                html += '<p><strong>Channels ranked by impact for ' + (isDemoFocused ? 'demo generation' : 'brand awareness') + ':</strong></p>';
+                html += '<ul>';
+
+                const channelImpact = {
+                    'demos': {
+                        high: ['email', 'direct', 'partner'],
+                        medium: ['linkedin-organic', 'linkedin-paid', 'landing', 'content'],
+                        low: []
+                    },
+                    'brand': {
+                        high: ['partner', 'linkedin-organic', 'content'],
+                        medium: ['linkedin-paid', 'email', 'landing'],
+                        low: ['direct']
+                    }
+                };
+
+                const impactMap = isDemoFocused ? channelImpact.demos : channelImpact.brand;
+
+                const channelNames = {
+                    'email': 'Direct email to CRM + partner lists',
+                    'direct': 'Direct LinkedIn outreach to high-value leads',
+                    'partner': 'Co-marketing with partners (leverage their credibility)',
+                    'linkedin-organic': 'Organic LinkedIn posts',
+                    'linkedin-paid': 'Targeted paid LinkedIn ads',
+                    'landing': 'Dedicated landing page with clear CTA',
+                    'content': 'Sector-specific one-pagers and resources'
+                };
+
+                // High impact
+                channels.filter(c => impactMap.high.includes(c)).forEach(channel => {
+                    html += `<li><strong>${channelNames[channel]}</strong> <span style="color: #28a745; font-weight: bold;">[HIGH IMPACT]</span></li>`;
+                });
+
+                // Medium impact
+                channels.filter(c => impactMap.medium.includes(c)).forEach(channel => {
+                    html += `<li>${channelNames[channel]} <span style="color: #ffc107; font-weight: bold;">[MEDIUM IMPACT]</span></li>`;
+                });
+
+                // Low impact
+                channels.filter(c => impactMap.low.includes(c)).forEach(channel => {
+                    html += `<li>${channelNames[channel]} <span style="color: #dc3545; font-weight: bold;">[LOW IMPACT]</span></li>`;
+                });
+
+                html += '</ul>';
+            }
+
+            html += '</div>';
+
+            // Measurable Goals
+            html += '<div class="recommendation-section">';
+            html += '<h3>Suggested Measurable Goals</h3>';
+
+            const sizeMultipliers = {
+                'small': { demos: 10, registrations: 40, reach: 500 },
+                'medium': { demos: 20, registrations: 60, reach: 800 },
+                'large': { demos: 15, registrations: 50, reach: 600 },
+                'enterprise': { demos: 8, registrations: 30, reach: 400 },
+                'govt': { demos: 5, registrations: 25, reach: 300 }
+            };
+
+            const targets = sizeMultipliers[orgSize] || sizeMultipliers['medium'];
+
+            if (isDemoFocused) {
+                html += `<div class="metric-box">`;
+                html += `<strong>Target:</strong> ${targets.demos} qualified demo requests within 30 days`;
+                html += `</div>`;
+                html += `<div class="metric-box">`;
+                html += `<strong>Leading Indicator:</strong> ${targets.registrations}+ registrations/engagements`;
+                html += `</div>`;
+            }
+
+            if (isBrandFocused) {
+                html += `<div class="metric-box">`;
+                html += `<strong>Target:</strong> ${targets.reach}+ reach across target audience`;
+                html += `</div>`;
+                html += `<div class="metric-box">`;
+                html += `<strong>Success Metric:</strong> 3+ partner mentions/co-branded materials`;
+                html += `</div>`;
+            }
+
+            html += '<p style="margin-top: 15px;"><strong>Evaluation timeline:</strong> 7 days, 14 days, and 30 days post-launch</p>';
+            html += '</div>';
+
+            // Call-to-Action Strategy
+            html += '<div class="recommendation-section">';
+            html += '<h3>Call-to-Action (CTA) Strategy</h3>';
+
+            const ctaGuidance = {
+                'register': {
+                    copy: '"Register for [Event Name] with [Partner Brand]"',
+                    followup: 'Send confirmation email with calendar invite + pre-event nurture sequence'
+                },
+                'demo': {
+                    copy: '"See how Elker reduces [pain point] - Book your demo"',
+                    followup: 'Immediate sales team notification + automated booking link'
+                },
+                'call': {
+                    copy: '"Speak with an expert about [specific outcome]"',
+                    followup: 'Calendly link + confirmation with agenda'
+                },
+                'download': {
+                    copy: '"Download: [Specific Guide/Resource Name]"',
+                    followup: 'Gated content + 3-email nurture series'
+                }
+            };
+
+            if (cta && ctaGuidance[cta]) {
+                const guidance = ctaGuidance[cta];
+                html += `<p><strong>Primary CTA:</strong> ${guidance.copy}</p>`;
+                html += `<p><strong>Consistency requirement:</strong> Use this exact CTA across all channels (email, LinkedIn, landing page, partner materials)</p>`;
+                html += `<p><strong>Immediate follow-up:</strong> ${guidance.followup}</p>`;
+            } else {
+                html += '<div class="warning-box"><strong>No CTA selected!</strong> Choose a clear call-to-action to guide prospects.</div>';
+            }
+
+            html += '</div>';
+
+            // Follow-up Pathway
+            if (followup.length > 0) {
+                html += '<div class="recommendation-section">';
+                html += '<h3>Follow-up Pathway</h3>';
+                html += '<ul>';
+
+                if (followup.includes('auto')) {
+                    html += '<li><strong>Automated nurture:</strong> 3-5 email sequence over 2 weeks (mix education + social proof)</li>';
+                }
+                if (followup.includes('manual')) {
+                    html += '<li><strong>High-value outreach:</strong> Sales team manually contacts attendees from target org sizes within 48 hours</li>';
+                }
+                if (followup.includes('partner')) {
+                    html += '<li><strong>Partner coordination:</strong> Share attendee insights with partners for co-follow-up (with consent)</li>';
+                }
+                if (followup.includes('content')) {
+                    html += '<li><strong>Content nurture:</strong> Send case studies and sector-specific guides weekly</li>';
+                }
+
+                html += '</ul>';
+                html += '</div>';
+            }
+
+            // Resource Requirements
+            html += '<div class="recommendation-section">';
+            html += '<h3>What You Need to Execute This</h3>';
+            html += '<ul>';
+
+            if (channels.includes('email')) {
+                html += '<li>Clean, segmented CRM list with contact info</li>';
+            }
+            if (channels.includes('linkedin-paid')) {
+                html += '<li>LinkedIn ads budget ($2,000-5,000 recommended)</li>';
+            }
+            if (channels.includes('partner')) {
+                html += '<li>Formal agreements with partners for list sharing/co-marketing</li>';
+            }
+            if (channels.includes('landing')) {
+                html += '<li>Landing page with tracking (GA4, LinkedIn pixel)</li>';
+            }
+            if (channels.includes('content')) {
+                html += '<li>Sector-specific collateral (one-pagers, case studies)</li>';
+            }
+            if (channels.includes('direct')) {
+                html += '<li>Sales Navigator licenses + dedicated outreach time (5-10 hrs/week)</li>';
+            }
+            if (followup.includes('auto')) {
+                html += '<li>Marketing automation tool (HubSpot, Mailchimp, etc.)</li>';
+            }
+
+            html += '<li>Clear ownership: Who owns each channel? Who does follow-up?</li>';
+            html += '</ul>';
+            html += '</div>';
+
+            // Final recommendation
+            html += '<div class="recommendation-section" style="background: #d4edda; border: 2px solid #28a745;">';
+            html += '<h3>Final Recommendation Summary</h3>';
+
+            if (isDemoFocused) {
+                html += '<p><strong>Strategy:</strong> Focus on direct, high-touch channels. Prioritize ';
+                const highImpact = channels.filter(c => ['email', 'direct', 'partner'].includes(c));
+                if (highImpact.length > 0) {
+                    html += highImpact.map(c => c.replace('-', ' ')).join(' + ');
+                } else {
+                    html += 'email + direct outreach + partner co-marketing';
+                }
+                html += '.</p>';
+                html += `<p><strong>Target:</strong> ${targets.demos} demos from ${audiences.length} audience(s) in ${orgSize || 'target'} orgs within 30 days.</p>`;
+                html += '<p><strong>Critical success factor:</strong> Tight audience focus + personalized messaging + rapid follow-up.</p>';
+            } else {
+                html += '<p><strong>Strategy:</strong> Maximize reach through partner alignment and thought leadership content.</p>';
+                html += '<p><strong>Target:</strong> Establish credibility with 3+ partner co-marketing activities and reach 500+ target prospects.</p>';
+                html += '<p><strong>Critical success factor:</strong> Consistent messaging across all partner touchpoints.</p>';
+            }
+
+            html += '</div>';
+
+            // Show recommendations
+            const recDiv = document.getElementById('recommendations');
+            recDiv.innerHTML = html;
+            recDiv.classList.add('show');
+
+            // Scroll to recommendations
+            recDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    </script>
+</body>
+</html>
