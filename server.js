@@ -14,6 +14,7 @@ app.post('/api/generate-strategy', async (req, res) => {
   const CLAUDE_API_KEY = process.env.CLAUDE_API_KEY;
 
   if (!CLAUDE_API_KEY) {
+    console.error('❌ CLAUDE_API_KEY not found in environment variables');
     return res.status(500).json({ error: 'API key not configured. Please add CLAUDE_API_KEY to your .env file' });
   }
 
@@ -23,6 +24,8 @@ app.post('/api/generate-strategy', async (req, res) => {
     if (!prompt) {
       return res.status(400).json({ error: 'Prompt is required' });
     }
+
+    console.log('📤 Calling Claude API...');
 
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
@@ -43,15 +46,18 @@ app.post('/api/generate-strategy', async (req, res) => {
 
     if (!response.ok) {
       const error = await response.json();
+      console.error('❌ Claude API Error:', error);
       return res.status(response.status).json({ error: error.error?.message || 'Claude API error' });
     }
 
     const data = await response.json();
+    console.log('✅ Claude API success');
     return res.status(200).json({ content: data.content[0].text });
 
   } catch (error) {
-    console.error('Error:', error);
-    return res.status(500).json({ error: 'Internal server error' });
+    console.error('❌ Server Error:', error.message);
+    console.error('Stack:', error.stack);
+    return res.status(500).json({ error: `Internal server error: ${error.message}` });
   }
 });
 

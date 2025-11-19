@@ -460,9 +460,10 @@
             padding: 20px;
             border-radius: 4px;
             margin: 15px 0;
-            line-height: 1.8;
+            line-height: 1.9;
             border: 1px solid #d4e0d8;
             position: relative;
+            white-space: pre-wrap;
         }
 
         .ai-content .copy-btn {
@@ -471,12 +472,23 @@
         }
 
         .ai-content p {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             padding-right: 80px;
         }
 
         .ai-content strong {
             color: #2d5f4f;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .recommendation-box p {
+            margin-bottom: 18px;
+            line-height: 1.7;
+        }
+
+        .recommendation-box > p:last-of-type {
+            margin-bottom: 0;
         }
 
         .export-buttons {
@@ -1423,6 +1435,13 @@ Return as clean HTML using these classes:
 - <div class="ai-content"> for ACTUAL MESSAGE TEMPLATES ONLY (email subject lines, social post copy, outreach messages) - add <button class="copy-btn" onclick="copyAIContent(this)">Copy</button> inside these
 - <strong> for emphasis
 - <p> for explanatory text (NO copy buttons)
+
+**CRITICAL FORMATTING REQUIREMENTS:**
+- ALWAYS wrap each paragraph of explanatory text in <p> tags
+- Do NOT use <br> tags for line breaks between paragraphs
+- Each distinct paragraph should be wrapped in its own <p></p> tags
+- Use double line breaks (blank lines) between sections for better readability
+- Inside .ai-content divs, use <p> tags for each line/paragraph of the message template
 
 Only add copy buttons to actual copyable message templates (email subjects, social posts, outreach messages). Do NOT add copy buttons to instructions, recommendations, or explanatory text.
 
