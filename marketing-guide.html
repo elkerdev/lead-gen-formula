@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marketing Strategy Builder</title>
+    <title>Elker Marketing Strategy Builder</title>
     <style>
         * {
             margin: 0;
@@ -12,104 +12,144 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #2c3e50;
+            background: #f5f7f6;
             min-height: 100vh;
-            padding: 20px;
+            padding: 30px 20px;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             background: white;
-            border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            border-radius: 2px;
             overflow: hidden;
-            min-height: 600px;
+            border: 1px solid #e8ebe9;
         }
 
         header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #2d5f4f;
             color: white;
-            padding: 40px 30px;
-            text-align: center;
+            padding: 50px 40px 40px;
+            border-bottom: 3px solid #1e4436;
         }
 
         header h1 {
             font-size: 2em;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            font-weight: 400;
+            letter-spacing: -0.5px;
+            font-family: Georgia, serif;
         }
 
         header p {
-            font-size: 1.1em;
-            opacity: 0.95;
+            font-size: 1em;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .explainer {
+            background: #f9faf9;
+            border-bottom: 1px solid #e8ebe9;
+            padding: 30px 40px;
+        }
+
+        .explainer h2 {
+            font-size: 1.2em;
+            color: #2d5f4f;
+            margin-bottom: 15px;
+            font-weight: 500;
+            font-family: Georgia, serif;
+        }
+
+        .explainer p {
+            color: #5a6c62;
+            line-height: 1.6;
+            margin-bottom: 0;
         }
 
         .content {
-            padding: 40px 30px;
+            padding: 40px 40px;
         }
 
         .step {
             display: none;
-            animation: fadeIn 0.5s ease-in;
         }
 
         .step.active {
             display: block;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
         .progress-bar {
             width: 100%;
-            height: 8px;
-            background: #e0e0e0;
-            border-radius: 10px;
-            overflow: hidden;
-            margin-bottom: 30px;
+            height: 3px;
+            background: #e8ebe9;
+            margin-bottom: 40px;
         }
 
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            background: #3d7a62;
             transition: width 0.3s ease;
-            border-radius: 10px;
         }
 
         .question {
-            font-size: 1.5em;
-            color: #667eea;
+            font-size: 1.4em;
+            color: #2d5f4f;
             margin-bottom: 15px;
-            font-weight: 600;
-            line-height: 1.3;
+            font-weight: 400;
+            line-height: 1.4;
+            font-family: Georgia, serif;
         }
 
         .helper-text {
-            color: #666;
+            color: #5a6c62;
             margin-bottom: 25px;
-            font-size: 1em;
-            line-height: 1.7;
+            font-size: 0.95em;
+            line-height: 1.6;
         }
 
         .example-box {
-            background: #f0f4ff;
-            border-left: 4px solid #667eea;
-            padding: 15px;
+            background: #f5f8f6;
+            border: 1px solid #d4e0d8;
+            padding: 18px 50px 18px 20px;
             margin-bottom: 20px;
-            border-radius: 6px;
-            font-size: 0.95em;
-            color: #555;
+            font-size: 0.9em;
+            color: #5a6c62;
+            position: relative;
+            font-family: 'Courier New', monospace;
         }
 
         .example-box strong {
-            color: #667eea;
+            color: #2d5f4f;
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: #3d7a62;
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            font-size: 0.8em;
+            cursor: pointer;
+            border-radius: 3px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            transition: background 0.2s ease;
+        }
+
+        .copy-btn:hover {
+            background: #2d5f4f;
         }
 
         .options {
@@ -121,46 +161,63 @@
 
         .option-card {
             padding: 20px;
-            background: #f8f9fa;
-            border: 2px solid #e0e0e0;
-            border-radius: 12px;
+            background: white;
+            border: 1px solid #d4e0d8;
+            border-radius: 4px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             position: relative;
         }
 
         .option-card:hover {
-            border-color: #667eea;
-            background: #f0f4ff;
-            transform: translateX(5px);
+            border-color: #3d7a62;
+            background: #f9faf9;
         }
 
         .option-card.selected {
-            border-color: #667eea;
-            background: #e8eeff;
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+            border-color: #3d7a62;
+            background: #f5f8f6;
+            border-width: 2px;
+            padding: 19px;
         }
 
         .option-card.selected::after {
-            content: "✓";
+            content: "";
             position: absolute;
             right: 20px;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 24px;
-            color: #667eea;
-            font-weight: bold;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #3d7a62;
+            border-radius: 50%;
+            background: #3d7a62;
+        }
+
+        .option-card.selected::before {
+            content: "";
+            position: absolute;
+            right: 26px;
+            top: 50%;
+            transform: translateY(-50%) rotate(45deg);
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            z-index: 1;
         }
 
         .option-card h4 {
-            font-size: 1.1em;
-            margin-bottom: 8px;
-            color: #333;
+            font-size: 1.05em;
+            margin-bottom: 6px;
+            color: #2c3e50;
+            font-weight: 500;
+            font-family: Georgia, serif;
         }
 
         .option-card p {
             font-size: 0.9em;
-            color: #666;
+            color: #5a6c62;
             margin: 0;
             line-height: 1.5;
         }
@@ -168,17 +225,17 @@
         .text-input {
             width: 100%;
             padding: 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
+            border: 1px solid #d4e0d8;
+            border-radius: 4px;
             font-size: 1em;
             font-family: inherit;
             margin-bottom: 20px;
-            transition: border-color 0.3s ease;
+            transition: border-color 0.2s ease;
         }
 
         .text-input:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #3d7a62;
         }
 
         textarea.text-input {
@@ -193,24 +250,23 @@
         }
 
         .btn {
-            padding: 15px 30px;
+            padding: 14px 28px;
             border: none;
-            border-radius: 8px;
-            font-size: 1.1em;
-            font-weight: 600;
+            border-radius: 4px;
+            font-size: 1em;
+            font-weight: 500;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #3d7a62;
             color: white;
             flex: 1;
         }
 
         .btn-primary:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+            background: #2d5f4f;
         }
 
         .btn-primary:disabled {
@@ -220,35 +276,36 @@
 
         .btn-secondary {
             background: white;
-            color: #667eea;
-            border: 2px solid #667eea;
-            padding: 13px 30px;
+            color: #3d7a62;
+            border: 1px solid #3d7a62;
         }
 
         .btn-secondary:hover {
-            background: #f0f4ff;
+            background: #f9faf9;
         }
 
         .checkbox-option {
             display: flex;
             align-items: flex-start;
             padding: 15px;
-            background: #f8f9fa;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
+            background: white;
+            border: 1px solid #d4e0d8;
+            border-radius: 4px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             margin-bottom: 10px;
         }
 
         .checkbox-option:hover {
-            border-color: #667eea;
-            background: #f0f4ff;
+            border-color: #3d7a62;
+            background: #f9faf9;
         }
 
         .checkbox-option.selected {
-            border-color: #667eea;
-            background: #e8eeff;
+            border-color: #3d7a62;
+            background: #f5f8f6;
+            border-width: 2px;
+            padding: 14px;
         }
 
         .checkbox-option input[type="checkbox"] {
@@ -258,6 +315,7 @@
             margin-top: 2px;
             cursor: pointer;
             flex-shrink: 0;
+            accent-color: #3d7a62;
         }
 
         .checkbox-option .label-content {
@@ -268,12 +326,14 @@
         .checkbox-option .label-content strong {
             display: block;
             margin-bottom: 4px;
-            color: #333;
+            color: #2c3e50;
+            font-weight: 500;
+            font-family: Georgia, serif;
         }
 
         .checkbox-option .label-content span {
             font-size: 0.9em;
-            color: #666;
+            color: #5a6c62;
         }
 
         .loading {
@@ -287,8 +347,8 @@
         }
 
         .spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #667eea;
+            border: 3px solid #e8ebe9;
+            border-top: 3px solid #3d7a62;
             border-radius: 50%;
             width: 50px;
             height: 50px;
@@ -310,25 +370,36 @@
         }
 
         .results h2 {
-            color: #667eea;
+            color: #2d5f4f;
             font-size: 1.8em;
             margin-bottom: 20px;
             padding-bottom: 15px;
-            border-bottom: 3px solid #667eea;
+            border-bottom: 2px solid #d4e0d8;
+            font-family: Georgia, serif;
+            font-weight: 400;
         }
 
         .recommendation-box {
-            background: #f8f9fa;
+            background: #f9faf9;
             padding: 25px;
-            border-radius: 12px;
+            border-radius: 4px;
             margin-bottom: 25px;
-            border-left: 5px solid #667eea;
+            border: 1px solid #d4e0d8;
+            position: relative;
+        }
+
+        .recommendation-box .copy-btn {
+            top: 20px;
+            right: 20px;
         }
 
         .recommendation-box h3 {
-            color: #764ba2;
+            color: #2d5f4f;
             font-size: 1.3em;
             margin-bottom: 15px;
+            font-family: Georgia, serif;
+            font-weight: 500;
+            padding-right: 80px;
         }
 
         .recommendation-box ul {
@@ -340,7 +411,7 @@
             padding: 10px 0;
             padding-left: 25px;
             position: relative;
-            border-bottom: 1px solid #e0e0e0;
+            border-bottom: 1px solid #e8ebe9;
         }
 
         .recommendation-box li:last-child {
@@ -351,53 +422,61 @@
             content: "→";
             position: absolute;
             left: 0;
-            color: #667eea;
-            font-weight: bold;
+            color: #3d7a62;
+            font-weight: normal;
         }
 
         .metric-badge {
             display: inline-block;
-            background: #fff3cd;
-            color: #856404;
+            background: #f5f8f6;
+            color: #2d5f4f;
             padding: 8px 15px;
-            border-radius: 6px;
-            font-weight: 600;
+            border-radius: 4px;
+            font-weight: 500;
             margin: 10px 5px 10px 0;
-            border-left: 4px solid #ffc107;
+            border: 1px solid #d4e0d8;
         }
 
         .priority-high {
-            background: #d4edda;
-            color: #155724;
-            border-left-color: #28a745;
+            background: #e8f5f0;
+            color: #1e4436;
+            border-color: #3d7a62;
         }
 
         .priority-medium {
-            background: #d1ecf1;
-            color: #0c5460;
-            border-left-color: #17a2b8;
+            background: #f5f8f6;
+            color: #2d5f4f;
+            border-color: #d4e0d8;
         }
 
         .priority-low {
-            background: #f8d7da;
-            color: #721c24;
-            border-left-color: #dc3545;
+            background: #f9faf9;
+            color: #5a6c62;
+            border-color: #e8ebe9;
         }
 
         .ai-content {
             background: white;
             padding: 20px;
-            border-radius: 8px;
+            border-radius: 4px;
             margin: 15px 0;
             line-height: 1.8;
+            border: 1px solid #d4e0d8;
+            position: relative;
+        }
+
+        .ai-content .copy-btn {
+            top: 15px;
+            right: 15px;
         }
 
         .ai-content p {
             margin-bottom: 15px;
+            padding-right: 80px;
         }
 
         .ai-content strong {
-            color: #667eea;
+            color: #2d5f4f;
         }
 
         .export-buttons {
@@ -405,22 +484,25 @@
             gap: 10px;
             margin-top: 30px;
             padding-top: 30px;
-            border-top: 2px solid #e0e0e0;
+            border-top: 1px solid #e8ebe9;
         }
 
         .tip-box {
-            background: #fff9e6;
-            border-left: 4px solid #ffc107;
+            background: #f9faf9;
+            border: 1px solid #d4e0d8;
             padding: 15px;
             margin: 20px 0;
-            border-radius: 6px;
+            border-radius: 4px;
             font-size: 0.95em;
         }
 
         .tip-box strong {
-            color: #856404;
+            color: #2d5f4f;
             display: block;
             margin-bottom: 5px;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.5px;
         }
 
         @media (max-width: 768px) {
@@ -439,15 +521,36 @@
             .question {
                 font-size: 1.3em;
             }
+
+            .copy-btn {
+                position: static;
+                display: block;
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            .example-box {
+                padding-right: 20px;
+            }
+
+            .recommendation-box h3,
+            .ai-content p {
+                padding-right: 0;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Marketing Strategy Builder</h1>
-            <p>Answer a few simple questions and get your complete marketing plan</p>
+            <h1>Elker Marketing Strategy Builder</h1>
+            <p>Create a tailored marketing strategy for your webinar or event</p>
         </header>
+
+        <div class="explainer">
+            <h2>How this works</h2>
+            <p>This tool helps you create a tailored marketing strategy for Elker webinars and events. Answer 7 questions about your event, audience, and resources, and receive a complete marketing plan with messaging, channel recommendations, and timelines.</p>
+        </div>
 
         <div class="content">
             <div class="progress-bar">
@@ -458,11 +561,12 @@
             <div class="step active" data-step="1">
                 <div class="question">What's your webinar or event about?</div>
                 <div class="helper-text">
-                    Tell us the topic, theme, or main focus. Don't worry about being perfect - just describe it naturally.
+                    Tell us the topic, theme, or main focus. Describe it in your own words.
                 </div>
                 <div class="example-box">
                     <strong>Example:</strong>
                     "Managing workplace investigations and staying compliant with new legislation"
+                    <button class="copy-btn" onclick="copyExample(this)">Copy</button>
                 </div>
                 <textarea class="text-input" id="topic" placeholder="Type your topic here..."></textarea>
 
@@ -472,11 +576,12 @@
                 <div class="example-box">
                     <strong>Example:</strong>
                     "We're partnering with Hall & Wilcox (law firm) and EML (insurance)"
+                    <button class="copy-btn" onclick="copyExample(this)">Copy</button>
                 </div>
                 <textarea class="text-input" id="partners" placeholder="List any partners or leave blank if none..."></textarea>
 
                 <div class="tip-box" style="margin-top: 25px;">
-                    <strong>Don't have a topic yet?</strong>
+                    <strong>Need help?</strong>
                     We can help you brainstorm ideas based on your company and goals.
                 </div>
 
@@ -593,7 +698,7 @@
             <div class="step" data-step="2">
                 <div class="question">Why would someone want to attend?</div>
                 <div class="helper-text">
-                    Think about the person attending - what problem are they facing? What will they learn or be able to do after attending?
+                    Think about the person attending. What problem are they facing? What will they learn or be able to do after attending?
                 </div>
                 <div class="example-box">
                     <strong>Good examples:</strong><br>
@@ -601,6 +706,7 @@
                     • "They don't know the new reporting requirements"<br>
                     • "They're overwhelmed with complaints and don't have a system"<br>
                     • "They want to reduce workplace misconduct"
+                    <button class="copy-btn" onclick="copyExample(this)">Copy</button>
                 </div>
                 <textarea class="text-input" id="attendee-benefit" placeholder="What problem does this solve for attendees?"></textarea>
                 <div class="button-group">
@@ -613,11 +719,12 @@
             <div class="step" data-step="3">
                 <div class="question">Think of 2-3 real people who should attend this</div>
                 <div class="helper-text">
-                    Not job titles - actual humans. This could be someone at a client, a prospect you've been talking to, someone you met at an event, or even someone at a company you want to work with.
+                    Not job titles - actual people. This could be someone at a client, a prospect you've been talking to, someone you met at an event, or someone at a company you want to work with.
                 </div>
                 <div class="example-box">
                     <strong>Example:</strong>
                     "Sarah from Solotel's HR team - she mentioned they're struggling with investigations. Also the compliance person at CatholicCare who reached out last month. And the HR Director at Lendlease that we've been trying to get a meeting with."
+                    <button class="copy-btn" onclick="copyExample(this)">Copy</button>
                 </div>
                 <textarea class="text-input" id="target-people" placeholder="Describe 2-3 specific people or types of people..."></textarea>
 
@@ -682,7 +789,7 @@
             <div class="step" data-step="4">
                 <div class="question">After someone hears about this, what should they do?</div>
                 <div class="helper-text">
-                    Be specific. What's the ONE action you want them to take?
+                    Be specific. What's the one action you want them to take?
                 </div>
                 <div class="options">
                     <div class="option-card" onclick="selectSingle(this, 'action')">
@@ -713,7 +820,7 @@
                     </div>
                     <div class="option-card" onclick="selectSingle(this, 'goal')">
                         <h4>Build our reputation</h4>
-                        <p>I want to be seen as an expert/leader in the space</p>
+                        <p>I want to be seen as an expert in the space</p>
                     </div>
                     <div class="option-card" onclick="selectSingle(this, 'goal')">
                         <h4>Collect contacts for later</h4>
@@ -721,7 +828,7 @@
                     </div>
                     <div class="option-card" onclick="selectSingle(this, 'goal')">
                         <h4>Strengthen partner relationships</h4>
-                        <p>Deepen connections with the co-hosts/partners</p>
+                        <p>Deepen connections with the co-hosts and partners</p>
                     </div>
                 </div>
 
@@ -735,14 +842,14 @@
             <div class="step" data-step="5">
                 <div class="question">Who already knows about you or has shown interest?</div>
                 <div class="helper-text">
-                    Warm contacts are gold. Select all that apply - we'll prioritize reaching out to people who already know you.
+                    Warm contacts are valuable. Select all that apply - we'll prioritize reaching out to people who already know you.
                 </div>
                 <div class="options" id="warm-audience-options">
                     <div class="checkbox-option" onclick="toggleCheckbox(this)">
                         <input type="checkbox" id="warm-customers">
                         <div class="label-content">
                             <strong>Existing customers</strong>
-                            <span>People who already use our product/service</span>
+                            <span>People who already use our product or service</span>
                         </div>
                     </div>
                     <div class="checkbox-option" onclick="toggleCheckbox(this)">
@@ -762,7 +869,7 @@
                     <div class="checkbox-option" onclick="toggleCheckbox(this)">
                         <input type="checkbox" id="warm-partners">
                         <div class="label-content">
-                            <strong>Partner/co-host contacts</strong>
+                            <strong>Partner and co-host contacts</strong>
                             <span>People from our partners' networks who might share this</span>
                         </div>
                     </div>
@@ -792,7 +899,7 @@
             <div class="step" data-step="6">
                 <div class="question">What can you actually commit to doing?</div>
                 <div class="helper-text">
-                    Be honest about time and resources. Better to do 2 things well than 10 things poorly.
+                    Be honest about time and resources. It's better to do 2 things well than 10 things poorly.
                 </div>
                 <div class="options" id="capability-options">
                     <div class="checkbox-option" onclick="toggleCheckbox(this)">
@@ -812,7 +919,7 @@
                     <div class="checkbox-option" onclick="toggleCheckbox(this)">
                         <input type="checkbox" id="cap-linkedin-posts">
                         <div class="label-content">
-                            <strong>Post on LinkedIn/social media</strong>
+                            <strong>Post on LinkedIn and social media</strong>
                             <span>We can create and share posts organically</span>
                         </div>
                     </div>
@@ -834,7 +941,7 @@
                         <input type="checkbox" id="cap-partner-promo">
                         <div class="label-content">
                             <strong>Get partners to promote it</strong>
-                            <span>Our partners/co-hosts will help spread the word to their audiences</span>
+                            <span>Our partners and co-hosts will help spread the word to their audiences</span>
                         </div>
                     </div>
                 </div>
@@ -849,7 +956,7 @@
             <div class="step" data-step="7">
                 <div class="question">When is this happening?</div>
                 <div class="helper-text">
-                    When is the webinar/event taking place?
+                    When is the webinar or event taking place?
                 </div>
                 <input type="date" class="text-input" id="timeline">
 
@@ -859,6 +966,7 @@
                 <div class="example-box">
                     <strong>Example:</strong>
                     "Last webinar we got 40 registrations from email. LinkedIn posts got zero. Our partner sent it to their list and we got 15 from that."
+                    <button class="copy-btn" onclick="copyExample(this)">Copy</button>
                 </div>
                 <textarea class="text-input" id="past-experience" placeholder="Share any past marketing wins or failures (optional but helpful)..."></textarea>
 
@@ -868,6 +976,7 @@
                 <div class="example-box">
                     <strong>Example:</strong>
                     "Tight timeline - only 2 weeks to promote. Limited budget. Need partner approval on messaging."
+                    <button class="copy-btn" onclick="copyExample(this)">Copy</button>
                 </div>
                 <textarea class="text-input" id="constraints" placeholder="Any constraints, concerns, or special requirements? (optional)"></textarea>
 
@@ -880,8 +989,8 @@
             <!-- Loading State -->
             <div class="loading" id="loading">
                 <div class="spinner"></div>
-                <p style="font-size: 1.2em; font-weight: 600; color: #667eea;">Creating your marketing strategy...</p>
-                <p style="color: #666; font-size: 0.95em; margin-top: 10px;">
+                <p style="font-size: 1.2em; font-weight: 500; color: #2d5f4f;">Creating your marketing strategy...</p>
+                <p style="color: #5a6c62; font-size: 0.95em; margin-top: 10px;">
                     We're analyzing your answers and building a personalized plan<br>
                     This takes about 15-20 seconds
                 </p>
@@ -1098,6 +1207,20 @@
             }
         }
 
+        // Copy example text function
+        function copyExample(button) {
+            const exampleBox = button.closest('.example-box');
+            const textToCopy = exampleBox.innerText.replace('EXAMPLE:', '').replace('Copy', '').trim();
+
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.textContent = originalText;
+                }, 2000);
+            });
+        }
+
         // Topic ideation flow functions
         function helpWithTopic() {
             // Hide step 1, show topic-1
@@ -1296,7 +1419,7 @@ Return ONLY the HTML divs, no other text.`;
             const today = new Date();
             const daysUntil = Math.ceil((eventDate - today) / (1000 * 60 * 60 * 24));
 
-            return `You are a marketing strategist helping someone plan their webinar/event promotion. They've answered questions as a complete novice, so your strategy needs to be specific, actionable, and assume zero marketing knowledge.
+            return `You are a marketing strategist helping someone plan their webinar or event promotion. They've answered questions as a complete novice, so your strategy needs to be specific, actionable, and assume zero marketing knowledge.
 
 CONTEXT GATHERED:
 
@@ -1307,12 +1430,12 @@ ${sel.companyBackground}
 Topic: ${sel.topic}
 ${sel.partners ? 'Partners involved: ' + sel.partners : 'No partners'}
 
-**Why someone would attend (the value prop):**
+**Why someone would attend (the value proposition):**
 ${sel.attendeeBenefit}
 
 **Who they want to reach:**
 Specific people in mind: ${sel.targetPeople}
-Job roles/departments: ${sel.audiences.map(a => a.role).join(', ')}
+Job roles and departments: ${sel.audiences.map(a => a.role).join(', ')}
 
 **Desired action:** ${sel.action}
 **Ultimate goal:** ${sel.goal}
@@ -1329,60 +1452,62 @@ Event date: ${sel.timeline} (${daysUntil} days from now)
 **Past experience:**
 ${sel.pastExperience || 'No past data provided'}
 
-**Constraints/concerns:**
+**Constraints and concerns:**
 ${sel.constraints || 'None mentioned'}
 
 ---
 
 Create a marketing strategy that:
 
-1. **STARTS WITH MESSAGING** - Before talking about channels, write the actual message/hook they should use. Base this on the attendee benefit they described and the topic. Write 2-3 variations they can test. Include:
+1. **STARTS WITH MESSAGING** - Before talking about channels, write the actual message they should use. Base this on the attendee benefit they described and the topic. Write 2-3 variations they can test. Include:
    - Subject line (if email)
    - Social post copy (if applicable)
    - Opening sentence for 1-on-1 outreach
-   Make these copy-paste ready.
+   Make these copy-paste ready. Wrap each in a div with class="ai-content" and add a copy button.
 
 2. **PRIORITIZED ACTION PLAN** - List exactly what to do, in priority order, based on their capabilities and warm audiences. For each action:
-   - Why this is high/medium/low priority for their SPECIFIC situation
+   - Why this is high, medium, or low priority for their specific situation
    - Exactly how to do it (step by step)
    - How long it will take
    - What they need to have ready
 
-3. **CHANNEL-SPECIFIC TACTICS** - For each channel they CAN use (based on capabilities):
+3. **CHANNEL-SPECIFIC TACTICS** - For each channel they can use (based on capabilities):
    - Specific tactic (not just "use email" but "send 3 emails: save-the-date, reminder, last-chance")
    - When to execute (specific days relative to event)
-   - Template or example
+   - Template or example (wrap in ai-content div with copy button)
    - Expected outcome (realistic numbers)
 
 4. **WEEK-BY-WEEK TIMELINE** - Given ${daysUntil} days until event, break down what to do each week. Be specific about dates.
 
 5. **REALISTIC SUCCESS METRICS** - Based on their warm audience size and capabilities, what numbers should they expect? Give ranges (conservative to optimistic).
 
-6. **WHAT COULD GO WRONG** - Given their constraints and past experience, what are the 2-3 biggest risks? How to mitigate?
-
-7. **NEXT 3 ACTIONS** - What are the literal next 3 things they should do TODAY? Be incredibly specific.
+6. **NEXT 3 ACTIONS** - What are the literal next 3 things they should do today? Be incredibly specific.
 
 **IMPORTANT STYLE NOTES:**
-- Write like you're coaching a friend, not writing a business doc
-- Use "you" language (You should...)
+- Write in a professional, consultative tone (not salesy or alarmist)
+- Use "you" language
 - No jargon - if you must use marketing terms, explain them
 - Give examples for everything
-- When suggesting email/social content, write actual templates they can copy
-- Focus heavily on WARM audiences first - always prioritize people who already know them
+- When suggesting email or social content, write actual templates they can copy
+- Focus heavily on targeted warm audiences - NEVER suggest "email your entire database"
+- Always recommend segmentation: only email people who match the target audience criteria
 - If they have partners, emphasize leveraging partner credibility and lists
-- Be honest about what won't work given their constraints
+- Be honest and realistic about what will and won't work given their constraints
+- CRITICAL: For email campaigns, always specify segmentation criteria (e.g., "Email HR and legal contacts from your CRM who work in organizations with 200+ employees" NOT "Email your entire list")
 
 **FORMAT:**
 Return as clean HTML using these classes:
-- <div class="recommendation-box"> for major sections
+- <div class="recommendation-box"> for major sections (NO copy buttons on these)
 - <h3> for section headers
 - <div class="metric-badge priority-high/medium/low"> for priorities and metrics
-- <ul> and <li> for action lists
-- <div class="ai-content"> for message templates and examples
+- <ul> and <li> for action lists (NO copy buttons)
+- <div class="ai-content"> for ACTUAL MESSAGE TEMPLATES ONLY (email subject lines, social post copy, outreach messages) - add <button class="copy-btn" onclick="copyAIContent(this)">Copy</button> inside these
 - <strong> for emphasis
-- <p> for explanatory text
+- <p> for explanatory text (NO copy buttons)
 
-Make this incredibly practical. They should be able to read this and immediately know what to do next.`;
+Only add copy buttons to actual copyable message templates (email subjects, social posts, outreach messages). Do NOT add copy buttons to instructions, recommendations, or explanatory text.
+
+Make this incredibly practical and targeted. They should be able to read this and immediately know what to do next.`;
         }
 
         function displayStrategy(htmlContent) {
@@ -1396,6 +1521,32 @@ Make this incredibly practical. They should be able to read this and immediately
             const content = document.getElementById('strategy-content').innerText;
             navigator.clipboard.writeText(content).then(() => {
                 alert('Strategy copied to clipboard!');
+            });
+        }
+
+        function copyRecommendation(button) {
+            const box = button.closest('.recommendation-box');
+            const textToCopy = box.innerText.replace('Copy', '').trim();
+
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.textContent = originalText;
+                }, 2000);
+            });
+        }
+
+        function copyAIContent(button) {
+            const content = button.closest('.ai-content');
+            const textToCopy = content.innerText.replace('Copy', '').trim();
+
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.textContent = originalText;
+                }, 2000);
             });
         }
 
