@@ -491,6 +491,57 @@
             margin-bottom: 0;
         }
 
+        .accordion-section {
+            border: 1px solid #d4e0d8;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            background: white;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            background: #f5f8f6;
+            padding: 20px 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #d4e0d8;
+            transition: background 0.2s;
+        }
+
+        .accordion-header:hover {
+            background: #edf2ed;
+        }
+
+        .accordion-header h3 {
+            margin: 0;
+            color: #2d5f4f;
+            font-size: 1.3em;
+            font-family: Georgia, serif;
+            font-weight: 500;
+        }
+
+        .accordion-icon {
+            color: #3d7a62;
+            font-size: 1.2em;
+            transition: transform 0.3s;
+            font-weight: bold;
+        }
+
+        .accordion-section.collapsed .accordion-icon {
+            transform: rotate(-90deg);
+        }
+
+        .accordion-content {
+            padding: 25px;
+            display: block;
+        }
+
+        .accordion-section.collapsed .accordion-content {
+            display: none;
+        }
+
         .export-buttons {
             display: flex;
             gap: 10px;
@@ -958,6 +1009,9 @@
                     <!-- Strategy will be inserted here by AI -->
                 </div>
                 <div class="export-buttons">
+                    <button class="btn btn-secondary" onclick="saveCampaign()">Save Campaign</button>
+                    <button class="btn btn-secondary" onclick="loadCampaign()">Load Saved Campaign</button>
+                    <button class="btn btn-secondary" onclick="downloadPDF()">Download PDF</button>
                     <button class="btn btn-secondary" onclick="copyToClipboard()">Copy to Clipboard</button>
                     <button class="btn btn-primary" onclick="startOver()">Create Another Strategy</button>
                 </div>
@@ -1377,17 +1431,27 @@ ${sel.constraints || 'None mentioned'}
 
 Create a marketing strategy that:
 
-1. **STARTS WITH MESSAGING** - Before talking about channels, write the actual message they should use. Base this on the attendee benefit they described and the topic. Write 2-3 variations they can test. Include:
-   - Subject line (if email)
-   - Social post copy (if applicable)
-   - Opening sentence for 1-on-1 outreach
-   Make these copy-paste ready. Wrap each in a div with class="ai-content" and add a copy button.
+1. **AUDIENCE SEGMENTATION STRATEGY** - Start by explaining WHY segmentation matters for this specific topic and audiences.
+   - Which Elker client segments are most relevant (workplaces, universities, schools, government, aged care, social services)
+   - Why this topic will resonate differently with each segment
+   - Specific pain points or interests for each segment
+   - How to identify these segments in their CRM
 
-2. **PRIORITIZED ACTION PLAN** - List exactly what to do, in priority order, based on their capabilities and target audiences. For each action:
-   - Why this is high, medium, or low priority for their specific situation
-   - Exactly how to do it (step by step)
-   - How long it will take
-   - What they need to have ready
+   Be educational - explain the strategic thinking behind the segmentation so they understand the "why" not just the "what".
+
+2. **CONTENT & MESSAGING STRATEGY** - This is the most important section. Provide deep, specific guidance:
+
+   For EACH target audience segment, provide:
+   - **Why this content will resonate**: Explain the specific pain points, interests, or goals this segment has
+   - **Messaging angle**: What specific angle/framing will work best for this audience (e.g., compliance focus for legal teams, ROI focus for executives)
+   - **Content examples**: 3-4 specific content ideas/templates tailored to this segment:
+     * Email subject lines with explanation of why they work
+     * Email body copy (2-3 paragraph template)
+     * LinkedIn post variations
+     * Specific call-to-action options and why each works
+   - **Language & tone guidance**: What words, phrases, or tone resonates with this segment
+
+   Wrap all copyable templates in <div class="ai-content"> with copy buttons. Provide strategic explanation in regular <p> tags.
 
 3. **CHANNEL-SPECIFIC TACTICS** - For each channel they can use (based on capabilities):
    - Specific tactic (not just "use email" but "send 3 emails: save-the-date, reminder, last-chance")
@@ -1395,9 +1459,24 @@ Create a marketing strategy that:
    - Template or example (wrap in ai-content div with copy button)
    - Expected outcome (realistic numbers)
 
-4. **WEEK-BY-WEEK TIMELINE** - Given ${daysUntil} days until event, break down what to do each week. Be specific about dates.
+4. **POST-EVENT FOLLOW-UP STRATEGY** - Critical for achieving their campaign goals. Provide a detailed plan:
+   - Segmented follow-up based on engagement (attended vs. registered but didn't attend vs. didn't register)
+   - Specific follow-up content for each segment (wrap templates in ai-content divs)
+   - Timeline for follow-ups (day 1, day 3, day 7, day 14)
+   - How to move attendees toward their ultimate goal (${sel.goal})
+   - Nurture sequence ideas to keep the conversation going
 
-5. **RECOMMENDED SUCCESS METRICS** - Based on their target audience and capabilities, what numbers should they expect? Give ranges (conservative to optimistic).
+   Explain WHY each follow-up matters and what it accomplishes toward their goal.
+
+5. **QUICK TIMELINE & KEY ACTIONS** - Keep this concise. Just the critical milestones:
+   - Week 1: [Top 2 actions]
+   - Week 2: [Top 2 actions]
+   - Week 3+: [Top 2 actions]
+   - Day before event: [Final checklist]
+
+   Focus only on the most important actions, not exhaustive lists.
+
+6. **RECOMMENDED SUCCESS METRICS** - Based on their target audience and capabilities, what numbers should they expect? Give ranges (conservative to optimistic).
 
    IMPORTANT: Frame email metrics as "ideal reach" or "potential reach" rather than assuming list size. Provide guidance like:
    - Small/niche topics: Aim to reach 50-200 relevant contacts across email, LinkedIn, and direct outreach
@@ -1406,7 +1485,7 @@ Create a marketing strategy that:
 
    Focus on TOTAL REACH across all channels (email + LinkedIn + direct outreach + partners) rather than assuming a specific email database size. Let them determine how to achieve that reach based on their available contacts and capabilities.
 
-6. **NEXT 3 ACTIONS** - What are the literal next 3 things they should do today? Be incredibly specific.
+7. **NEXT 3 ACTIONS** - What are the literal next 3 things they should do today? Be incredibly specific.
 
 **IMPORTANT STYLE NOTES:**
 - Write in a professional, consultative tone (not salesy or alarmist)
@@ -1434,9 +1513,21 @@ For email campaigns, you MUST provide specific segmentation advice:
 Never just say "email your list" - always provide the segmentation logic based on topic relevance.
 
 **FORMAT:**
-Return as clean HTML using these classes:
-- <div class="recommendation-box"> for major sections (NO copy buttons on these)
-- <h3> for section headers
+Return as clean HTML using ACCORDION SECTIONS for each major section (1-7 above):
+
+Structure each section like this:
+<div class="accordion-section">
+  <div class="accordion-header" onclick="toggleAccordion(this)">
+    <h3>Section Title</h3>
+    <span class="accordion-icon">▼</span>
+  </div>
+  <div class="accordion-content">
+    <!-- Section content here -->
+  </div>
+</div>
+
+Within accordion content, use these classes:
+- <div class="recommendation-box"> for sub-sections (NO copy buttons on these)
 - <div class="metric-badge priority-high/medium/low"> for priorities and metrics
 - <ul> and <li> for action lists (NO copy buttons)
 - <div class="ai-content"> for ACTUAL MESSAGE TEMPLATES ONLY (email subject lines, social post copy, outreach messages) - add <button class="copy-btn" onclick="copyAIContent(this)">Copy</button> inside these
@@ -1493,6 +1584,134 @@ Make this incredibly practical and targeted. They should be able to read this an
                     button.textContent = originalText;
                 }, 2000);
             });
+        }
+
+        function toggleAccordion(header) {
+            const section = header.parentElement;
+            section.classList.toggle('collapsed');
+        }
+
+        function saveCampaign() {
+            const campaignName = prompt('Enter a name for this campaign:');
+            if (!campaignName) return;
+
+            const campaign = {
+                name: campaignName,
+                date: new Date().toISOString(),
+                selections: selections,
+                strategy: document.getElementById('strategy-content').innerHTML
+            };
+
+            // Get existing campaigns
+            const campaigns = JSON.parse(localStorage.getItem('elkerCampaigns') || '[]');
+            campaigns.push(campaign);
+            localStorage.setItem('elkerCampaigns', JSON.stringify(campaigns));
+
+            alert(`Campaign "${campaignName}" saved successfully!`);
+        }
+
+        function loadCampaign() {
+            const campaigns = JSON.parse(localStorage.getItem('elkerCampaigns') || '[]');
+
+            if (campaigns.length === 0) {
+                alert('No saved campaigns found.');
+                return;
+            }
+
+            // Create a selection modal
+            let options = campaigns.map((c, i) =>
+                `${i + 1}. ${c.name} (${new Date(c.date).toLocaleDateString()})`
+            ).join('\n');
+
+            const choice = prompt(`Select a campaign to load:\n\n${options}\n\nEnter the number (or "delete" to manage campaigns):`);
+
+            if (!choice) return;
+
+            if (choice.toLowerCase() === 'delete') {
+                manageCampaigns(campaigns);
+                return;
+            }
+
+            const index = parseInt(choice) - 1;
+            if (index >= 0 && index < campaigns.length) {
+                const campaign = campaigns[index];
+                document.getElementById('strategy-content').innerHTML = campaign.strategy;
+                document.getElementById('results').classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                alert(`Campaign "${campaign.name}" loaded successfully!`);
+            } else {
+                alert('Invalid selection.');
+            }
+        }
+
+        function manageCampaigns(campaigns) {
+            let options = campaigns.map((c, i) =>
+                `${i + 1}. ${c.name} (${new Date(c.date).toLocaleDateString()})`
+            ).join('\n');
+
+            const choice = prompt(`Delete a campaign:\n\n${options}\n\nEnter the number to delete (or cancel):`);
+            if (!choice) return;
+
+            const index = parseInt(choice) - 1;
+            if (index >= 0 && index < campaigns.length) {
+                const deleted = campaigns.splice(index, 1)[0];
+                localStorage.setItem('elkerCampaigns', JSON.stringify(campaigns));
+                alert(`Campaign "${deleted.name}" deleted.`);
+                loadCampaign();
+            }
+        }
+
+        function downloadPDF() {
+            // Create a clean version for PDF
+            const content = document.getElementById('strategy-content').cloneNode(true);
+
+            // Remove copy buttons
+            content.querySelectorAll('.copy-btn').forEach(btn => btn.remove());
+
+            // Open accordions for PDF
+            content.querySelectorAll('.accordion-section').forEach(section => {
+                section.classList.remove('collapsed');
+            });
+
+            // Create printable HTML
+            const printWindow = window.open('', '', 'height=800,width=800');
+            printWindow.document.write(`
+                <html>
+                <head>
+                    <title>Marketing Strategy</title>
+                    <style>
+                        body {
+                            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                            line-height: 1.6;
+                            color: #2c3e50;
+                            padding: 40px;
+                            max-width: 800px;
+                            margin: 0 auto;
+                        }
+                        h2 { color: #2d5f4f; font-family: Georgia, serif; margin-top: 30px; }
+                        h3 { color: #2d5f4f; font-family: Georgia, serif; margin-top: 25px; }
+                        .accordion-header { display: none; }
+                        .accordion-content { padding: 0; display: block !important; }
+                        .accordion-section { border: 1px solid #d4e0d8; margin-bottom: 20px; padding: 20px; }
+                        .recommendation-box { background: #f9faf9; padding: 20px; margin: 15px 0; border: 1px solid #d4e0d8; }
+                        .ai-content { background: white; padding: 15px; border: 1px solid #d4e0d8; margin: 10px 0; }
+                        ul { padding-left: 20px; }
+                        li { margin: 8px 0; }
+                        strong { color: #2d5f4f; }
+                        p { margin-bottom: 15px; }
+                    </style>
+                </head>
+                <body>
+                    <h1>Elker Marketing Strategy</h1>
+                    ${content.innerHTML}
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
+            printWindow.focus();
+            setTimeout(() => {
+                printWindow.print();
+            }, 250);
         }
 
         function startOver() {
