@@ -542,6 +542,88 @@
             display: none;
         }
 
+        .timeline-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .timeline-table th {
+            background: #f5f8f6;
+            color: #2d5f4f;
+            font-weight: 600;
+            text-align: left;
+            padding: 12px 15px;
+            border-bottom: 2px solid #d4e0d8;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .timeline-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e8ebe9;
+            vertical-align: top;
+        }
+
+        .timeline-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .timeline-table tr:hover {
+            background: #f9faf9;
+        }
+
+        .timeline-table .copy-btn {
+            padding: 6px 12px;
+            font-size: 0.85em;
+        }
+
+        .segment-card {
+            background: #f9faf9;
+            border: 1px solid #d4e0d8;
+            border-radius: 4px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .segment-card h4 {
+            color: #2d5f4f;
+            margin: 0 0 12px 0;
+            font-family: Georgia, serif;
+            font-size: 1.1em;
+        }
+
+        .template-item {
+            margin-bottom: 15px;
+        }
+
+        .template-label {
+            font-weight: 600;
+            color: #2d5f4f;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .pain-points {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0;
+        }
+
+        .pain-points li {
+            padding: 8px 0 8px 25px;
+            position: relative;
+        }
+
+        .pain-points li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #3d7a62;
+        }
+
         .export-buttons {
             display: flex;
             gap: 10px;
@@ -1429,128 +1511,496 @@ ${sel.constraints || 'None mentioned'}
 
 ---
 
-Create a marketing strategy that:
-
-1. **AUDIENCE SEGMENTATION STRATEGY** - Start by explaining WHY segmentation matters for this specific topic and audiences.
-   - Which Elker client segments are most relevant (workplaces, universities, schools, government, aged care, social services)
-   - Why this topic will resonate differently with each segment
-   - Specific pain points or interests for each segment
-   - How to identify these segments in their CRM
-
-   Be educational - explain the strategic thinking behind the segmentation so they understand the "why" not just the "what".
-
-2. **CONTENT & MESSAGING STRATEGY** - This is the most important section. Provide deep, specific guidance:
-
-   For EACH target audience segment, provide:
-   - **Why this content will resonate**: Explain the specific pain points, interests, or goals this segment has
-   - **Messaging angle**: What specific angle/framing will work best for this audience (e.g., compliance focus for legal teams, ROI focus for executives)
-   - **Content examples**: 3-4 specific content ideas/templates tailored to this segment:
-     * Email subject lines with explanation of why they work
-     * Email body copy (2-3 paragraph template)
-     * LinkedIn post variations
-     * Specific call-to-action options and why each works
-   - **Language & tone guidance**: What words, phrases, or tone resonates with this segment
-
-   Wrap all copyable templates in <div class="ai-content"> with copy buttons. Provide strategic explanation in regular <p> tags.
-
-3. **CHANNEL-SPECIFIC TACTICS** - For each channel they can use (based on capabilities):
-   - Specific tactic (not just "use email" but "send 3 emails: save-the-date, reminder, last-chance")
-   - When to execute (specific days relative to event)
-   - Template or example (wrap in ai-content div with copy button)
-   - Expected outcome (realistic numbers)
-
-4. **POST-EVENT FOLLOW-UP STRATEGY** - Critical for achieving their campaign goals. Provide a detailed plan:
-   - Segmented follow-up based on engagement (attended vs. registered but didn't attend vs. didn't register)
-   - Specific follow-up content for each segment (wrap templates in ai-content divs)
-   - Timeline for follow-ups (day 1, day 3, day 7, day 14)
-   - How to move attendees toward their ultimate goal (${sel.goal})
-   - Nurture sequence ideas to keep the conversation going
-
-   Explain WHY each follow-up matters and what it accomplishes toward their goal.
-
-5. **QUICK TIMELINE & KEY ACTIONS** - Keep this concise. Just the critical milestones:
-   - Week 1: [Top 2 actions]
-   - Week 2: [Top 2 actions]
-   - Week 3+: [Top 2 actions]
-   - Day before event: [Final checklist]
-
-   Focus only on the most important actions, not exhaustive lists.
-
-6. **RECOMMENDED SUCCESS METRICS** - Based on their target audience and capabilities, what numbers should they expect? Give ranges (conservative to optimistic).
-
-   IMPORTANT: Frame email metrics as "ideal reach" or "potential reach" rather than assuming list size. Provide guidance like:
-   - Small/niche topics: Aim to reach 50-200 relevant contacts across email, LinkedIn, and direct outreach
-   - Medium scope: Aim to reach 200-500 relevant contacts
-   - Broad appeal: Aim to reach 500-800+ relevant contacts
-
-   Focus on TOTAL REACH across all channels (email + LinkedIn + direct outreach + partners) rather than assuming a specific email database size. Let them determine how to achieve that reach based on their available contacts and capabilities.
-
-7. **NEXT 3 ACTIONS** - What are the literal next 3 things they should do today? Be incredibly specific.
-
-**IMPORTANT STYLE NOTES:**
-- Write in a professional, consultative tone (not salesy or alarmist)
-- Use "you" language
-- No jargon - if you must use marketing terms, explain them
-- Give examples for everything
-- When suggesting email or social content, write actual templates they can copy
-- Focus on targeted outreach to the specific audiences they identified
-- If they have partners, emphasize leveraging partner credibility and lists
-- Be honest and realistic about what will and won't work given their constraints
-
 **CRITICAL EMAIL SEGMENTATION GUIDANCE:**
 Elker works with diverse client types: workplaces/businesses, universities, schools, government agencies, aged care providers, and social services organizations.
 
 For email campaigns, you MUST provide specific segmentation advice:
 1. Analyze the webinar topic and target audiences they selected
 2. Determine which client segments are most relevant (e.g., if topic is about student misconduct, focus on universities/schools; if about workplace investigations, focus on businesses/government)
-3. Provide clear segmentation criteria, such as:
-   - "Email contacts tagged as 'Higher Education' OR 'Schools' in your CRM"
-   - "Email HR and Legal contacts from Business and Government client segments"
-   - "Email all contacts from Healthcare and Aged Care organizations"
-4. If the topic is broadly relevant across ALL Elker client types, you MAY recommend emailing the full database, but explain WHY it's appropriate and suggest personalizing by segment
-5. Always specify: "Segment your CRM by [criteria] and only email those matching [description]"
+3. Provide clear segmentation criteria for CRM filtering
+4. If the topic is broadly relevant across ALL Elker client types, you MAY recommend broader reach, but explain WHY it's appropriate and suggest personalizing by segment
 
-Never just say "email your list" - always provide the segmentation logic based on topic relevance.
+**IMPORTANT STYLE NOTES:**
+- Write in a professional, consultative tone (not salesy or alarmist)
+- Use "you" language throughout
+- No jargon - if you must use marketing terms, explain them simply
+- Be educational - explain WHY things work, not just WHAT to do
+- Focus on targeted outreach to the specific audiences they identified
+- If they have partners, emphasize leveraging partner credibility and lists
+- Be honest and realistic about what will and won't work given their constraints
 
-**FORMAT:**
-Return as clean HTML using ACCORDION SECTIONS for each major section (1-7 above):
+**FORMAT - RETURN VALID JSON ONLY:**
 
-Structure each section like this:
-<div class="accordion-section">
-  <div class="accordion-header" onclick="toggleAccordion(this)">
-    <h3>Section Title</h3>
-    <span class="accordion-icon">▼</span>
-  </div>
-  <div class="accordion-content">
-    <!-- Section content here -->
-  </div>
-</div>
+Return ONLY valid JSON (no markdown, no explanatory text before or after). Use this exact structure:
 
-Within accordion content, use these classes:
-- <div class="recommendation-box"> for sub-sections (NO copy buttons on these)
-- <div class="metric-badge priority-high/medium/low"> for priorities and metrics
-- <ul> and <li> for action lists (NO copy buttons)
-- <div class="ai-content"> for ACTUAL MESSAGE TEMPLATES ONLY (email subject lines, social post copy, outreach messages) - add <button class="copy-btn" onclick="copyAIContent(this)">Copy</button> inside these
-- <strong> for emphasis
-- <p> for explanatory text (NO copy buttons)
+{
+  "segmentation": {
+    "why": "Explanation of why segmentation matters for this specific topic",
+    "segments": [
+      {
+        "segment": "Segment name (e.g., Universities, Government)",
+        "relevance": "Why this segment cares about the topic",
+        "painPoints": ["Pain point 1", "Pain point 2", "Pain point 3"],
+        "crmCriteria": "How to identify this segment in CRM (e.g., 'Contacts tagged as Higher Education')"
+      }
+    ]
+  },
+  "messaging": {
+    "segments": [
+      {
+        "segment": "Segment name (must match segmentation.segments)",
+        "why": "Deep explanation of why content will resonate with this segment",
+        "angle": "The messaging angle/framing (e.g., 'compliance focus', 'ROI focus')",
+        "tone": "Language and tone guidance for this segment",
+        "templates": [
+          {
+            "id": "template_1",
+            "type": "email_subject",
+            "text": "Subject line text",
+            "why": "Explanation of why this subject line works for this segment"
+          },
+          {
+            "id": "template_2",
+            "type": "email_body",
+            "text": "Full email body text (2-3 paragraphs)",
+            "why": "Why this email body resonates"
+          },
+          {
+            "id": "template_3",
+            "type": "linkedin_post",
+            "text": "LinkedIn post text",
+            "why": "Why this works on LinkedIn"
+          },
+          {
+            "id": "template_4",
+            "type": "cta",
+            "text": "Call to action text",
+            "why": "Why this CTA is effective"
+          }
+        ]
+      }
+    ]
+  },
+  "timeline": [
+    {
+      "when": "Specific date range or week (e.g., 'Week 1: Dec 1-7' or '2 weeks before event')",
+      "action": "Specific action to take",
+      "platform": "Email | LinkedIn | Direct Outreach | Partner Channel",
+      "templateId": "template_1"
+    }
+  ],
+  "followUp": {
+    "why": "Explanation of why post-event follow-up matters for achieving their goal: ${sel.goal}",
+    "sequences": [
+      {
+        "audience": "Attended",
+        "strategy": "Strategy for attendees",
+        "timeline": [
+          {
+            "when": "Day 1",
+            "action": "What to do",
+            "templateId": "followup_template_1"
+          }
+        ],
+        "templates": [
+          {
+            "id": "followup_template_1",
+            "type": "email_subject | email_body | linkedin_message",
+            "text": "Template text",
+            "why": "Why this works"
+          }
+        ]
+      },
+      {
+        "audience": "Registered but didn't attend",
+        "strategy": "Strategy for no-shows",
+        "timeline": [...],
+        "templates": [...]
+      },
+      {
+        "audience": "Didn't register",
+        "strategy": "Strategy for non-registrants",
+        "timeline": [...],
+        "templates": [...]
+      }
+    ]
+  },
+  "metrics": {
+    "reach": {
+      "target": "50-200 | 200-500 | 500-800+",
+      "explanation": "Why this reach target is appropriate"
+    },
+    "registrations": {
+      "conservative": "Number",
+      "optimistic": "Number",
+      "explanation": "Reasoning behind these numbers"
+    },
+    "attendance": {
+      "conservative": "Number",
+      "optimistic": "Number",
+      "explanation": "Based on industry benchmarks"
+    },
+    "conversion": {
+      "conservative": "Number",
+      "optimistic": "Number",
+      "explanation": "Expected outcomes for their goal: ${sel.goal}"
+    }
+  },
+  "nextActions": [
+    {
+      "priority": 1,
+      "action": "First specific action to do today",
+      "details": "Step-by-step how to do it"
+    },
+    {
+      "priority": 2,
+      "action": "Second specific action",
+      "details": "Step-by-step how to do it"
+    },
+    {
+      "priority": 3,
+      "action": "Third specific action",
+      "details": "Step-by-step how to do it"
+    }
+  ]
+}
 
-**CRITICAL FORMATTING REQUIREMENTS:**
-- ALWAYS wrap each paragraph of explanatory text in <p> tags
-- Do NOT use <br> tags for line breaks between paragraphs
-- Each distinct paragraph should be wrapped in its own <p></p> tags
-- Use double line breaks (blank lines) between sections for better readability
-- Inside .ai-content divs, use <p> tags for each line/paragraph of the message template
-
-Only add copy buttons to actual copyable message templates (email subjects, social posts, outreach messages). Do NOT add copy buttons to instructions, recommendations, or explanatory text.
-
-Make this incredibly practical and targeted. They should be able to read this and immediately know what to do next.`;
+CRITICAL: Return ONLY the JSON object. No markdown code blocks, no explanatory text, just pure JSON that can be parsed with JSON.parse().`;
         }
 
-        function displayStrategy(htmlContent) {
+        // Store templates globally for timeline reference
+        let allTemplates = {};
+
+        function displayStrategy(jsonResponse) {
             document.getElementById('loading').classList.remove('active');
-            document.getElementById('strategy-content').innerHTML = htmlContent;
-            document.getElementById('results').classList.add('active');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            try {
+                // Parse JSON response
+                const strategy = JSON.parse(jsonResponse);
+
+                // Build template lookup
+                buildTemplateLookup(strategy);
+
+                // Render all sections
+                const html = `
+                    ${renderSegmentation(strategy.segmentation)}
+                    ${renderMessaging(strategy.messaging)}
+                    ${renderTimeline(strategy.timeline)}
+                    ${renderFollowUp(strategy.followUp)}
+                    ${renderMetrics(strategy.metrics)}
+                    ${renderNextActions(strategy.nextActions)}
+                `;
+
+                document.getElementById('strategy-content').innerHTML = html;
+                document.getElementById('results').classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } catch (error) {
+                console.error('Error parsing strategy:', error);
+                document.getElementById('strategy-content').innerHTML = `
+                    <div class="recommendation-box" style="border-color: #d9534f; background: #f9e8e8;">
+                        <h3 style="color: #d9534f;">Error Loading Strategy</h3>
+                        <p>There was an error parsing the strategy response. Please try again.</p>
+                        <p style="font-size: 0.9em; color: #999;">${error.message}</p>
+                    </div>
+                `;
+                document.getElementById('results').classList.add('active');
+            }
+        }
+
+        function buildTemplateLookup(strategy) {
+            allTemplates = {};
+
+            // Add messaging templates
+            if (strategy.messaging && strategy.messaging.segments) {
+                strategy.messaging.segments.forEach(seg => {
+                    if (seg.templates) {
+                        seg.templates.forEach(tpl => {
+                            allTemplates[tpl.id] = tpl;
+                        });
+                    }
+                });
+            }
+
+            // Add follow-up templates
+            if (strategy.followUp && strategy.followUp.sequences) {
+                strategy.followUp.sequences.forEach(seq => {
+                    if (seq.templates) {
+                        seq.templates.forEach(tpl => {
+                            allTemplates[tpl.id] = tpl;
+                        });
+                    }
+                });
+            }
+        }
+
+        function renderSegmentation(segmentation) {
+            if (!segmentation) return '';
+
+            const segmentsHtml = segmentation.segments.map(seg => `
+                <div class="segment-card">
+                    <h4>${seg.segment}</h4>
+                    <p><strong>Why they care:</strong> ${seg.relevance}</p>
+                    <p><strong>CRM Criteria:</strong> ${seg.crmCriteria}</p>
+                    <p><strong>Pain Points:</strong></p>
+                    <ul class="pain-points">
+                        ${seg.painPoints.map(p => `<li>${p}</li>`).join('')}
+                    </ul>
+                </div>
+            `).join('');
+
+            return `
+                <div class="accordion-section">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h3>Audience Segmentation Strategy</h3>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>${segmentation.why}</p>
+                        ${segmentsHtml}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderMessaging(messaging) {
+            if (!messaging) return '';
+
+            const segmentsHtml = messaging.segments.map(seg => {
+                const templatesHtml = seg.templates.map(tpl => `
+                    <div class="template-item">
+                        <span class="template-label">${formatTemplateType(tpl.type)}</span>
+                        <div class="ai-content" id="${tpl.id}">
+                            <p>${tpl.text}</p>
+                            <button class="copy-btn" onclick="copyAIContent(this)">Copy</button>
+                        </div>
+                        <p style="font-size: 0.9em; color: #5a6c62; margin-top: 8px;"><em>Why this works:</em> ${tpl.why}</p>
+                    </div>
+                `).join('');
+
+                return `
+                    <div class="segment-card">
+                        <h4>${seg.segment}</h4>
+                        <p><strong>Why this resonates:</strong> ${seg.why}</p>
+                        <p><strong>Messaging angle:</strong> ${seg.angle}</p>
+                        <p><strong>Tone & language:</strong> ${seg.tone}</p>
+                        <div style="margin-top: 20px;">
+                            <strong style="color: #2d5f4f;">Message Templates:</strong>
+                            ${templatesHtml}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            return `
+                <div class="accordion-section">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h3>Content & Messaging Strategy</h3>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        ${segmentsHtml}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderTimeline(timeline) {
+            if (!timeline || timeline.length === 0) return '';
+
+            const rows = timeline.map(item => {
+                const template = allTemplates[item.templateId];
+                const copyButton = template
+                    ? `<button class="copy-btn" onclick="copyTemplateById('${item.templateId}')">Copy</button>`
+                    : '';
+
+                return `
+                    <tr>
+                        <td>${item.when}</td>
+                        <td>${item.action}</td>
+                        <td>${item.platform}</td>
+                        <td>${copyButton}</td>
+                    </tr>
+                `;
+            }).join('');
+
+            return `
+                <div class="accordion-section">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h3>Campaign Timeline</h3>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <table class="timeline-table">
+                            <thead>
+                                <tr>
+                                    <th>When</th>
+                                    <th>Action Item</th>
+                                    <th>Target Platform</th>
+                                    <th>Copy Template</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${rows}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderFollowUp(followUp) {
+            if (!followUp) return '';
+
+            const sequencesHtml = followUp.sequences.map(seq => {
+                const timelineHtml = seq.timeline.map(item => `
+                    <tr>
+                        <td>${item.when}</td>
+                        <td>${item.action}</td>
+                        <td><button class="copy-btn" onclick="copyTemplateById('${item.templateId}')">Copy</button></td>
+                    </tr>
+                `).join('');
+
+                const templatesHtml = seq.templates.map(tpl => `
+                    <div class="template-item">
+                        <span class="template-label">${formatTemplateType(tpl.type)}</span>
+                        <div class="ai-content" id="${tpl.id}">
+                            <p>${tpl.text}</p>
+                            <button class="copy-btn" onclick="copyAIContent(this)">Copy</button>
+                        </div>
+                        <p style="font-size: 0.9em; color: #5a6c62; margin-top: 8px;"><em>Why this works:</em> ${tpl.why}</p>
+                    </div>
+                `).join('');
+
+                return `
+                    <div class="segment-card">
+                        <h4>For: ${seq.audience}</h4>
+                        <p>${seq.strategy}</p>
+
+                        <table class="timeline-table" style="margin-top: 15px;">
+                            <thead>
+                                <tr>
+                                    <th>When</th>
+                                    <th>Action</th>
+                                    <th>Template</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${timelineHtml}
+                            </tbody>
+                        </table>
+
+                        <div style="margin-top: 20px;">
+                            <strong style="color: #2d5f4f;">Follow-up Templates:</strong>
+                            ${templatesHtml}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            return `
+                <div class="accordion-section">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h3>Post-Event Follow-Up Strategy</h3>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>${followUp.why}</p>
+                        ${sequencesHtml}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderMetrics(metrics) {
+            if (!metrics) return '';
+
+            return `
+                <div class="accordion-section">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h3>Recommended Success Metrics</h3>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="segment-card">
+                            <h4>Target Reach</h4>
+                            <p><strong>${metrics.reach.target} contacts</strong></p>
+                            <p>${metrics.reach.explanation}</p>
+                        </div>
+
+                        <div class="segment-card">
+                            <h4>Expected Registrations</h4>
+                            <p><strong>${metrics.registrations.conservative} - ${metrics.registrations.optimistic}</strong></p>
+                            <p>${metrics.registrations.explanation}</p>
+                        </div>
+
+                        <div class="segment-card">
+                            <h4>Expected Attendance</h4>
+                            <p><strong>${metrics.attendance.conservative} - ${metrics.attendance.optimistic}</strong></p>
+                            <p>${metrics.attendance.explanation}</p>
+                        </div>
+
+                        <div class="segment-card">
+                            <h4>Expected Conversions</h4>
+                            <p><strong>${metrics.conversion.conservative} - ${metrics.conversion.optimistic}</strong></p>
+                            <p>${metrics.conversion.explanation}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderNextActions(actions) {
+            if (!actions || actions.length === 0) return '';
+
+            const actionsHtml = actions.map(action => `
+                <div class="segment-card">
+                    <h4>Priority ${action.priority}: ${action.action}</h4>
+                    <p>${action.details}</p>
+                </div>
+            `).join('');
+
+            return `
+                <div class="accordion-section">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h3>Next 3 Actions</h3>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        ${actionsHtml}
+                    </div>
+                </div>
+            `;
+        }
+
+        function formatTemplateType(type) {
+            const types = {
+                'email_subject': 'Email Subject Line',
+                'email_body': 'Email Body',
+                'linkedin_post': 'LinkedIn Post',
+                'linkedin_message': 'LinkedIn Message',
+                'cta': 'Call to Action'
+            };
+            return types[type] || type;
+        }
+
+        function copyTemplateById(templateId) {
+            const template = allTemplates[templateId];
+            if (!template) {
+                alert('Template not found');
+                return;
+            }
+
+            navigator.clipboard.writeText(template.text).then(() => {
+                // Find all copy buttons for this template and update them
+                const buttons = document.querySelectorAll(`button[onclick="copyTemplateById('${templateId}')"]`);
+                buttons.forEach(button => {
+                    const originalText = button.textContent;
+                    button.textContent = 'Copied!';
+                    setTimeout(() => {
+                        button.textContent = originalText;
+                    }, 2000);
+                });
+            });
         }
 
         function copyToClipboard() {
