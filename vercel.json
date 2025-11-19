@@ -3,11 +3,5 @@
     "api/generate-strategy.js": {
       "maxDuration": 30
     }
-  },
-  "rewrites": [
-    {
-      "source": "/",
-      "destination": "/marketing-guide.html"
-    }
-  ]
+  }
 }
