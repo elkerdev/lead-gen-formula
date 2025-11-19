@@ -1,0 +1,2185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elker Marketing Strategy Builder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: #f5f7f6;
+            min-height: 100vh;
+            padding: 30px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 2px;
+            overflow: hidden;
+            border: 1px solid #e8ebe9;
+        }
+
+        header {
+            background: #2d5f4f;
+            color: white;
+            padding: 50px 40px 40px;
+            border-bottom: 3px solid #1e4436;
+        }
+
+        header h1 {
+            font-size: 2em;
+            margin-bottom: 12px;
+            font-weight: 400;
+            letter-spacing: -0.5px;
+            font-family: Georgia, serif;
+        }
+
+        header p {
+            font-size: 1em;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .explainer {
+            background: #f9faf9;
+            border-bottom: 1px solid #e8ebe9;
+            padding: 30px 40px;
+        }
+
+        .explainer h2 {
+            font-size: 1.2em;
+            color: #2d5f4f;
+            margin-bottom: 15px;
+            font-weight: 500;
+            font-family: Georgia, serif;
+        }
+
+        .explainer p {
+            color: #5a6c62;
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+
+        .content {
+            padding: 40px 40px;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 3px;
+            background: #e8ebe9;
+            margin-bottom: 40px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #3d7a62;
+            transition: width 0.3s ease;
+        }
+
+        .question {
+            font-size: 1.4em;
+            color: #2d5f4f;
+            margin-bottom: 15px;
+            font-weight: 400;
+            line-height: 1.4;
+            font-family: Georgia, serif;
+        }
+
+        .helper-text {
+            color: #5a6c62;
+            margin-bottom: 25px;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .example-box {
+            background: #f5f8f6;
+            border: 1px solid #d4e0d8;
+            padding: 18px 50px 18px 20px;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+            color: #5a6c62;
+            position: relative;
+            font-family: 'Courier New', monospace;
+        }
+
+        .example-box strong {
+            color: #2d5f4f;
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: #3d7a62;
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            font-size: 0.8em;
+            cursor: pointer;
+            border-radius: 3px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            transition: background 0.2s ease;
+        }
+
+        .copy-btn:hover {
+            background: #2d5f4f;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .option-card {
+            padding: 20px;
+            background: white;
+            border: 1px solid #d4e0d8;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .option-card:hover {
+            border-color: #3d7a62;
+            background: #f9faf9;
+        }
+
+        .option-card.selected {
+            border-color: #3d7a62;
+            background: #f5f8f6;
+            border-width: 2px;
+            padding: 19px;
+        }
+
+        .option-card.selected::after {
+            content: "";
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border: 2px solid #3d7a62;
+            border-radius: 50%;
+            background: #3d7a62;
+        }
+
+        .option-card.selected::before {
+            content: "";
+            position: absolute;
+            right: 28px;
+            top: 48%;
+            transform: translateY(-48%) rotate(45deg);
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            z-index: 1;
+        }
+
+        .option-card h4 {
+            font-size: 1.05em;
+            margin-bottom: 6px;
+            color: #2c3e50;
+            font-weight: 500;
+            font-family: Georgia, serif;
+        }
+
+        .option-card p {
+            font-size: 0.9em;
+            color: #5a6c62;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .text-input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #d4e0d8;
+            border-radius: 4px;
+            font-size: 1em;
+            font-family: inherit;
+            margin-bottom: 20px;
+            transition: border-color 0.2s ease;
+        }
+
+        .text-input:focus {
+            outline: none;
+            border-color: #3d7a62;
+        }
+
+        textarea.text-input {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background: #3d7a62;
+            color: white;
+            flex: 1;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: #2d5f4f;
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #3d7a62;
+            border: 1px solid #3d7a62;
+        }
+
+        .btn-secondary:hover {
+            background: #f9faf9;
+        }
+
+        .checkbox-option {
+            display: flex;
+            align-items: flex-start;
+            padding: 15px;
+            background: white;
+            border: 1px solid #d4e0d8;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-bottom: 10px;
+        }
+
+        .checkbox-option:hover {
+            border-color: #3d7a62;
+            background: #f9faf9;
+        }
+
+        .checkbox-option.selected {
+            border-color: #3d7a62;
+            background: #f5f8f6;
+            border-width: 2px;
+            padding: 14px;
+        }
+
+        .checkbox-option input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 15px;
+            margin-top: 2px;
+            cursor: pointer;
+            flex-shrink: 0;
+            accent-color: #3d7a62;
+        }
+
+        .checkbox-option .label-content {
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .checkbox-option .label-content strong {
+            display: block;
+            margin-bottom: 4px;
+            color: #2c3e50;
+            font-weight: 500;
+            font-family: Georgia, serif;
+        }
+
+        .checkbox-option .label-content span {
+            font-size: 0.9em;
+            color: #5a6c62;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            border: 3px solid #e8ebe9;
+            border-top: 3px solid #3d7a62;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .results {
+            display: none;
+        }
+
+        .results.active {
+            display: block;
+        }
+
+        .results h2 {
+            color: #2d5f4f;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #d4e0d8;
+            font-family: Georgia, serif;
+            font-weight: 400;
+        }
+
+        .recommendation-box {
+            background: #f9faf9;
+            padding: 25px;
+            border-radius: 4px;
+            margin-bottom: 25px;
+            border: 1px solid #d4e0d8;
+            position: relative;
+        }
+
+        .recommendation-box .copy-btn {
+            top: 20px;
+            right: 20px;
+        }
+
+        .recommendation-box h3 {
+            color: #2d5f4f;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            font-family: Georgia, serif;
+            font-weight: 500;
+            padding-right: 80px;
+        }
+
+        .recommendation-box ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .recommendation-box li {
+            padding: 10px 0;
+            padding-left: 25px;
+            position: relative;
+            border-bottom: 1px solid #e8ebe9;
+        }
+
+        .recommendation-box li:last-child {
+            border-bottom: none;
+        }
+
+        .recommendation-box li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #3d7a62;
+            font-weight: normal;
+        }
+
+        .metric-badge {
+            display: inline-block;
+            background: #f5f8f6;
+            color: #2d5f4f;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-weight: 500;
+            margin: 10px 5px 10px 0;
+            border: 1px solid #d4e0d8;
+        }
+
+        .priority-high {
+            background: #e8f5f0;
+            color: #1e4436;
+            border-color: #3d7a62;
+        }
+
+        .priority-medium {
+            background: #f5f8f6;
+            color: #2d5f4f;
+            border-color: #d4e0d8;
+        }
+
+        .priority-low {
+            background: #f9faf9;
+            color: #5a6c62;
+            border-color: #e8ebe9;
+        }
+
+        .ai-content {
+            background: white;
+            padding: 15px 50px 15px 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+            line-height: 1.6;
+            border: 1px solid #d4e0d8;
+            position: relative;
+            white-space: normal;
+        }
+
+        .ai-content .copy-btn {
+            top: 15px;
+            right: 15px;
+        }
+
+        .ai-content p {
+            margin-bottom: 20px;
+            padding-right: 80px;
+        }
+
+        .ai-content strong {
+            color: #2d5f4f;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .recommendation-box p {
+            margin-bottom: 18px;
+            line-height: 1.7;
+        }
+
+        .recommendation-box > p:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .accordion-section {
+            border: 1px solid #d4e0d8;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            background: white;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            background: #f5f8f6;
+            padding: 20px 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #d4e0d8;
+            transition: background 0.2s;
+        }
+
+        .accordion-header:hover {
+            background: #edf2ed;
+        }
+
+        .accordion-header h3 {
+            margin: 0;
+            color: #2d5f4f;
+            font-size: 1.3em;
+            font-family: Georgia, serif;
+            font-weight: 500;
+        }
+
+        .accordion-icon {
+            color: #3d7a62;
+            font-size: 1.2em;
+            transition: transform 0.3s;
+            font-weight: bold;
+        }
+
+        .accordion-section.collapsed .accordion-icon {
+            transform: rotate(-90deg);
+        }
+
+        .accordion-content {
+            padding: 25px;
+            display: block;
+        }
+
+        .accordion-section.collapsed .accordion-content {
+            display: none;
+        }
+
+        .timeline-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .timeline-table th {
+            background: #f5f8f6;
+            color: #2d5f4f;
+            font-weight: 600;
+            text-align: left;
+            padding: 12px 15px;
+            border-bottom: 2px solid #d4e0d8;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .timeline-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e8ebe9;
+            vertical-align: top;
+        }
+
+        .timeline-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .timeline-table tr:hover {
+            background: #f9faf9;
+        }
+
+        .timeline-table .copy-btn {
+            padding: 6px 12px;
+            font-size: 0.85em;
+        }
+
+        .segment-card {
+            background: #f9faf9;
+            border: 1px solid #d4e0d8;
+            border-radius: 4px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .segment-card h4 {
+            color: #2d5f4f;
+            margin: 0 0 12px 0;
+            font-family: Georgia, serif;
+            font-size: 1.1em;
+        }
+
+        .template-item {
+            margin-bottom: 15px;
+        }
+
+        .template-label {
+            font-weight: 600;
+            color: #2d5f4f;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .pain-points {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0;
+        }
+
+        .pain-points li {
+            padding: 8px 0 8px 25px;
+            position: relative;
+        }
+
+        .pain-points li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #3d7a62;
+        }
+
+        .export-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid #e8ebe9;
+        }
+
+        .tip-box {
+            background: #f9faf9;
+            border: 1px solid #d4e0d8;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+
+        .tip-box strong {
+            color: #2d5f4f;
+            display: block;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.5px;
+        }
+
+        @media (max-width: 768px) {
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn-secondary {
+                order: 2;
+            }
+
+            header h1 {
+                font-size: 1.6em;
+            }
+
+            .question {
+                font-size: 1.3em;
+            }
+
+            .copy-btn {
+                position: static;
+                display: block;
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            .example-box {
+                padding-right: 20px;
+            }
+
+            .recommendation-box h3,
+            .ai-content p {
+                padding-right: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Elker Marketing Strategy Builder</h1>
+            <p>Create a tailored marketing strategy for your webinar or event</p>
+        </header>
+
+        <div class="explainer">
+            <h2>How this works</h2>
+            <p>This tool helps you create a tailored marketing strategy for Elker webinars and events. Answer 6 questions about your event, audience, and resources, and receive a complete marketing plan with messaging, channel recommendations, and timelines.</p>
+        </div>
+
+        <div class="content">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar" style="width: 0%"></div>
+            </div>
+
+            <!-- Step 1: What's the topic/content? -->
+            <div class="step active" data-step="1">
+                <div class="question">What's your webinar or event about?</div>
+                <div class="helper-text">
+                    Tell us the topic, theme, or main focus. Describe it in your own words.
+                </div>
+                <div class="example-box">
+                    <strong>Example:</strong>
+                    Managing workplace investigations and staying compliant with new legislation
+                    <button class="copy-btn" onclick="copyExample(this)">Copy</button>
+                </div>
+                <textarea class="text-input" id="topic" placeholder="Type your topic here..."></textarea>
+
+                <div class="helper-text" style="margin-top: 20px;">
+                    Who else is involved? (Partners, co-hosts, guest speakers)
+                </div>
+                <div class="example-box">
+                    <strong>Example:</strong>
+                    We're partnering with Hall & Wilcox (law firm) and EML (insurance)
+                    <button class="copy-btn" onclick="copyExample(this)">Copy</button>
+                </div>
+                <textarea class="text-input" id="partners" placeholder="List any partners or leave blank if none..."></textarea>
+
+                <div class="tip-box" style="margin-top: 25px;">
+                    <strong>Need help?</strong>
+                    We can help you brainstorm ideas based on your company and goals.
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-secondary" onclick="helpWithTopic()">Help me think of a topic</button>
+                    <button class="btn btn-primary" onclick="nextStep()">Next</button>
+                </div>
+            </div>
+
+            <!-- Topic Ideation Steps -->
+            <div class="step" data-step="topic-1">
+                <div class="question">What business goal are you trying to achieve?</div>
+                <div class="helper-text">
+                    Think about what you want for your business in the next 3-6 months.
+                </div>
+                <div class="options">
+                    <div class="option-card" onclick="selectSingle(this, 'topic-goal')">
+                        <h4>Win more customers</h4>
+                        <p>Generate leads and close more deals</p>
+                    </div>
+                    <div class="option-card" onclick="selectSingle(this, 'topic-goal')">
+                        <h4>Be seen as the expert</h4>
+                        <p>Build thought leadership and credibility in our space</p>
+                    </div>
+                    <div class="option-card" onclick="selectSingle(this, 'topic-goal')">
+                        <h4>Upsell existing customers</h4>
+                        <p>Get current customers using more features or upgrading</p>
+                    </div>
+                    <div class="option-card" onclick="selectSingle(this, 'topic-goal')">
+                        <h4>Enter a new market</h4>
+                        <p>Reach a new industry or audience we haven't targeted before</p>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button class="btn btn-secondary" onclick="cancelTopicHelp()">Back</button>
+                    <button class="btn btn-primary" onclick="nextTopicStep()">Next</button>
+                </div>
+            </div>
+
+            <div class="step" data-step="topic-2">
+                <div class="question">What's happening in your industry right now?</div>
+                <div class="helper-text">
+                    Select anything that's creating buzz, concern, or change for your customers.
+                </div>
+                <div class="options" id="industry-trends-options">
+                    <div class="checkbox-option" onclick="toggleCheckbox(this)">
+                        <input type="checkbox" id="trend-legislation">
+                        <div class="label-content">
+                            <strong>New laws or regulations</strong>
+                            <span>Compliance requirements, legal changes, new standards</span>
+                        </div>
+                    </div>
+                    <div class="checkbox-option" onclick="toggleCheckbox(this)">
+                        <input type="checkbox" id="trend-technology">
+                        <div class="label-content">
+                            <strong>New technology or AI</strong>
+                            <span>Industry adopting new tools, automation, or AI solutions</span>
+                        </div>
+                    </div>
+                    <div class="checkbox-option" onclick="toggleCheckbox(this)">
+                        <input type="checkbox" id="trend-risk">
+                        <div class="label-content">
+                            <strong>Increased risk or liability</strong>
+                            <span>Companies worried about lawsuits, safety, or reputation damage</span>
+                        </div>
+                    </div>
+                    <div class="checkbox-option" onclick="toggleCheckbox(this)">
+                        <input type="checkbox" id="trend-efficiency">
+                        <div class="label-content">
+                            <strong>Pressure to do more with less</strong>
+                            <span>Budget cuts, staffing shortages, need for efficiency</span>
+                        </div>
+                    </div>
+                    <div class="checkbox-option" onclick="toggleCheckbox(this)">
+                        <input type="checkbox" id="trend-culture">
+                        <div class="label-content">
+                            <strong>Workplace culture issues</strong>
+                            <span>DEI, harassment, psychological safety, employee wellbeing</span>
+                        </div>
+                    </div>
+                    <div class="checkbox-option" onclick="toggleCheckbox(this)">
+                        <input type="checkbox" id="trend-none">
+                        <div class="label-content">
+                            <strong>Nothing major / Not sure</strong>
+                            <span>Industry is fairly stable right now</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button class="btn btn-secondary" onclick="prevTopicStep()">Back</button>
+                    <button class="btn btn-primary" onclick="generateTopicIdeas()">Generate Topic Ideas</button>
+                </div>
+            </div>
+
+            <div class="step" data-step="topic-results">
+                <div class="question">Here are some webinar topic ideas</div>
+                <div class="helper-text">
+                    Based on what you told us, here are topics that could work well. Select one or use it as inspiration.
+                </div>
+                <div id="topic-suggestions" class="options">
+                    <!-- AI-generated topics will be inserted here -->
+                </div>
+                <div class="helper-text" style="margin-top: 25px;">
+                    Or write your own topic:
+                </div>
+                <textarea class="text-input" id="custom-topic" placeholder="Type your own topic idea..."></textarea>
+                <div class="button-group">
+                    <button class="btn btn-secondary" onclick="prevTopicStep()">Back</button>
+                    <button class="btn btn-primary" onclick="useSelectedTopic()">Use This Topic</button>
+                </div>
+            </div>
+
+            <!-- Step 2: What problem does this solve? -->
+            <div class="step" data-step="2">
+                <div class="question">Why would someone want to attend?</div>
+                <div class="helper-text">
+                    Think about the person attending. What problem are they facing? What will they learn or be able to do after attending?
+                </div>
+                <div class="example-box">
+                    <strong>Good examples:</strong><br>
+                    • "They're worried about getting sued for mishandling investigations"<br>
+                    • "They don't know the new reporting requirements"<br>
+                    • "They're overwhelmed with complaints and don't have a system"<br>
+                    • "They want to reduce workplace misconduct"
+                    <button class="copy-btn" onclick="copyExample(this)">Copy</button>
+                </div>
+                <textarea class="text-input" id="attendee-benefit" placeholder="What problem does this solve for attendees?"></textarea>
+                <div class="button-group">
+                    <button class="btn btn-secondary" onclick="prevStep()">Back</button>
+                    <button class="btn btn-primary" onclick="nextStep()">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Who are the actual people you want there? -->
+            <div class="step" data-step="3">
+                <div class="question">Think of 2-3 real people who should attend this</div>
+                <div class="helper-text">
+                    Not job titles - actual people. This could be someone at a client, a prospect you've been talking to, someone you met at an event, or someone at a company you want to work with.
+                </div>
+                <div class="example-box">
+                    <strong>Example:</strong>
+                    Sarah from Solotel's HR team - she mentioned they're struggling with investigations. Also the compliance person at CatholicCare who reached out last month. And the HR Director at Lendlease that we've been trying to get a meeting with.
+                    <button class="copy-btn" onclick="copyExample(this)">Copy</button>
+                </div>
+                <textarea class="text-input" id="target-people" placeholder="Describe 2-3 specific people or types of people..."></textarea>
+
+                <div class="helper-text" style="margin-top: 20px;">
+                    Now, what do these people have in common? (Their job role or department)
+                </div>
+                <div class="tip-box">
+                    <strong>Tip:</strong> This helps us understand where to find more people like them
+                </div>
+                <div class="options" id="audience-options">
+                    <div class="checkbox-option" onclick="toggleCheckbox(this)">
+                        <input type="checkbox" id="aud-legal">
+                        <div class="label-content">
+                            <strong>Legal / Compliance / Risk</strong>
+                            <span>General Counsel, Legal Directors, Compliance Officers, Risk Managers</span>
+                        </div>
+                    </div>
+                    <div class="checkbox-option" onclick="toggleCheckbox(this)">
+                        <input type="checkbox" id="aud-hr">
+                        <div class="label-content">
+                            <strong>People & Culture / HR</strong>
+                            <span>HR Directors, People & Culture Leaders, Employee Relations</span>
+                        </div>
+                    </div>
+                    <div class="checkbox-option" onclick="toggleCheckbox(this)">
+                        <input type="checkbox" id="aud-safety">
+                        <div class="label-content">
+                            <strong>Health & Safety / WHS</strong>
+                            <span>WHS Managers, Safety Officers, Health & Safety Coordinators</span>
+                        </div>
+                    </div>
+                    <div class="checkbox-option" onclick="toggleCheckbox(this)">
+                        <input type="checkbox" id="aud-education">
+                        <div class="label-content">
+                            <strong>Education Integrity / Student Conduct</strong>
+                            <span>Academic Integrity Officers, Student Conduct Coordinators</span>
+                        </div>
+                    </div>
+                    <div class="checkbox-option" onclick="toggleCheckbox(this)">
+                        <input type="checkbox" id="aud-social">
+                        <div class="label-content">
+                            <strong>Social Services / Safeguarding</strong>
+                            <span>Safeguarding Leads, Child Protection, Community Services</span>
+                        </div>
+                    </div>
+                    <div class="checkbox-option" onclick="toggleCheckbox(this)">
+                        <input type="checkbox" id="aud-leadership">
+                        <div class="label-content">
+                            <strong>Senior Leadership</strong>
+                            <span>CEOs, COOs, General Managers who care about risk and culture</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-secondary" onclick="prevStep()">Back</button>
+                    <button class="btn btn-primary" onclick="nextStep()">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 4: What do you want them to do? -->
+            <div class="step" data-step="4">
+                <div class="question">After someone hears about this, what should they do?</div>
+                <div class="helper-text">
+                    Be specific. What's the one action you want them to take?
+                </div>
+                <div class="options">
+                    <div class="option-card" onclick="selectSingle(this, 'action')">
+                        <h4>Register for the webinar</h4>
+                        <p>Sign up to attend the event</p>
+                    </div>
+                    <div class="option-card" onclick="selectSingle(this, 'action')">
+                        <h4>Book a demo of our product</h4>
+                        <p>Schedule a one-on-one product demonstration</p>
+                    </div>
+                    <div class="option-card" onclick="selectSingle(this, 'action')">
+                        <h4>Schedule a conversation</h4>
+                        <p>Book a call to discuss their specific needs</p>
+                    </div>
+                    <div class="option-card" onclick="selectSingle(this, 'action')">
+                        <h4>Download a guide or resource</h4>
+                        <p>Get a helpful document or tool</p>
+                    </div>
+                </div>
+
+                <div class="helper-text" style="margin-top: 20px;">
+                    And what's your ultimate goal from all of this?
+                </div>
+                <div class="options">
+                    <div class="option-card" onclick="selectSingle(this, 'goal')">
+                        <h4>Get sales meetings booked</h4>
+                        <p>I want people ready to buy</p>
+                    </div>
+                    <div class="option-card" onclick="selectSingle(this, 'goal')">
+                        <h4>Build our reputation</h4>
+                        <p>I want to be seen as an expert in the space</p>
+                    </div>
+                    <div class="option-card" onclick="selectSingle(this, 'goal')">
+                        <h4>Collect contacts for later</h4>
+                        <p>Build a list to nurture over time</p>
+                    </div>
+                    <div class="option-card" onclick="selectSingle(this, 'goal')">
+                        <h4>Strengthen partner relationships</h4>
+                        <p>Deepen connections with the co-hosts and partners</p>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-secondary" onclick="prevStep()">Back</button>
+                    <button class="btn btn-primary" onclick="nextStep()">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 5: What can you actually do? -->
+            <div class="step" data-step="5">
+                <div class="question">What can you actually commit to doing?</div>
+                <div class="helper-text">
+                    Be honest about time and resources. It's better to do 2 things well than 10 things poorly.
+                </div>
+                <div class="options" id="capability-options">
+                    <div class="checkbox-option" onclick="toggleCheckbox(this)">
+                        <input type="checkbox" id="cap-email">
+                        <div class="label-content">
+                            <strong>Send emails to our list</strong>
+                            <span>We have a list and can send promotional emails</span>
+                        </div>
+                    </div>
+                    <div class="checkbox-option" onclick="toggleCheckbox(this)">
+                        <input type="checkbox" id="cap-personal">
+                        <div class="label-content">
+                            <strong>Personal outreach (1-on-1 messages)</strong>
+                            <span>We can spend 3-5 hours messaging specific people individually</span>
+                        </div>
+                    </div>
+                    <div class="checkbox-option" onclick="toggleCheckbox(this)">
+                        <input type="checkbox" id="cap-linkedin-posts">
+                        <div class="label-content">
+                            <strong>Post on LinkedIn and social media</strong>
+                            <span>We can create and share posts organically</span>
+                        </div>
+                    </div>
+                    <div class="checkbox-option" onclick="toggleCheckbox(this)">
+                        <input type="checkbox" id="cap-paid-ads">
+                        <div class="label-content">
+                            <strong>Run paid ads ($2,000+ budget)</strong>
+                            <span>We have budget for LinkedIn or other paid advertising</span>
+                        </div>
+                    </div>
+                    <div class="checkbox-option" onclick="toggleCheckbox(this)">
+                        <input type="checkbox" id="cap-content">
+                        <div class="label-content">
+                            <strong>Create content (landing page, graphics, etc.)</strong>
+                            <span>We can build promotional materials and web pages</span>
+                        </div>
+                    </div>
+                    <div class="checkbox-option" onclick="toggleCheckbox(this)">
+                        <input type="checkbox" id="cap-partner-promo">
+                        <div class="label-content">
+                            <strong>Get partners to promote it</strong>
+                            <span>Our partners and co-hosts will help spread the word to their audiences</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-secondary" onclick="prevStep()">Back</button>
+                    <button class="btn btn-primary" onclick="nextStep()">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 6: Timeline and context -->
+            <div class="step" data-step="6">
+                <div class="question">When is this happening?</div>
+                <div class="helper-text">
+                    When is the webinar or event taking place?
+                </div>
+                <input type="date" class="text-input" id="timeline">
+
+                <div class="helper-text" style="margin-top: 20px;">
+                    What's worked before? What hasn't?
+                </div>
+                <div class="example-box">
+                    <strong>Example:</strong>
+                    Last webinar we got 40 registrations from email. LinkedIn posts got zero. Our partner sent it to their list and we got 15 from that.
+                    <button class="copy-btn" onclick="copyExample(this)">Copy</button>
+                </div>
+                <textarea class="text-input" id="past-experience" placeholder="Share any past marketing wins or failures (optional but helpful)..."></textarea>
+
+                <div class="helper-text">
+                    Anything else we should know?
+                </div>
+                <div class="example-box">
+                    <strong>Example:</strong>
+                    Tight timeline - only 2 weeks to promote. Limited budget. Need partner approval on messaging.
+                    <button class="copy-btn" onclick="copyExample(this)">Copy</button>
+                </div>
+                <textarea class="text-input" id="constraints" placeholder="Any constraints, concerns, or special requirements? (optional)"></textarea>
+
+                <div class="button-group">
+                    <button class="btn btn-secondary" onclick="prevStep()">Back</button>
+                    <button class="btn btn-primary" onclick="generateStrategy()">Generate My Marketing Plan</button>
+                </div>
+            </div>
+
+            <!-- Loading State -->
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p style="font-size: 1.2em; font-weight: 500; color: #2d5f4f;">Creating your marketing strategy...</p>
+                <p style="color: #5a6c62; font-size: 0.95em; margin-top: 10px;">
+                    We're analyzing your answers and building a personalized plan<br>
+                    This takes about 15-20 seconds
+                </p>
+            </div>
+
+            <!-- Results -->
+            <div class="results" id="results">
+                <h2>Your Marketing Strategy</h2>
+                <div id="strategy-content">
+                    <!-- Strategy will be inserted here by AI -->
+                </div>
+                <div class="export-buttons">
+                    <button class="btn btn-secondary" onclick="saveCampaign()">Save Campaign</button>
+                    <button class="btn btn-secondary" onclick="loadCampaign()">Load Saved Campaign</button>
+                    <button class="btn btn-secondary" onclick="downloadPDF()">Download PDF</button>
+                    <button class="btn btn-secondary" onclick="copyToClipboard()">Copy to Clipboard</button>
+                    <button class="btn btn-primary" onclick="startOver()">Create Another Strategy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 6;
+        const selections = {
+            companyBackground: "Elker is a workplace reporting and case management platform that enables employees to anonymously report concerns about misconduct, safety issues, and other workplace problems. We help organizations transform from reactive (responding to known incidents) to proactive (identifying emerging risks early through employee feedback). Our platform combines anonymous reporting, efficient case management, and real-time analytics. We serve HR teams, legal departments, compliance officers, WHS managers, and integrity teams across businesses, universities, schools, government agencies, and aged care providers."
+        };
+        let inTopicMode = false;
+
+        function updateProgress() {
+            const progress = (currentStep / totalSteps) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        function nextStep() {
+            if (!validateStep(currentStep)) {
+                return;
+            }
+
+            saveStepData(currentStep);
+
+            document.querySelector(`.step[data-step="${currentStep}"]`).classList.remove('active');
+            currentStep++;
+            document.querySelector(`.step[data-step="${currentStep}"]`).classList.add('active');
+            updateProgress();
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function prevStep() {
+            document.querySelector(`.step[data-step="${currentStep}"]`).classList.remove('active');
+            currentStep--;
+            document.querySelector(`.step[data-step="${currentStep}"]`).classList.add('active');
+            updateProgress();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function validateStep(step) {
+            switch(step) {
+                case 1:
+                    const topic = document.getElementById('topic').value.trim();
+                    if (!topic) {
+                        alert('Please describe your webinar topic or click "Help me think of a topic"');
+                        return false;
+                    }
+                    return true;
+                case 2:
+                    const benefit = document.getElementById('attendee-benefit').value.trim();
+                    if (!benefit) {
+                        alert('Please explain why someone would want to attend');
+                        return false;
+                    }
+                    return true;
+                case 3:
+                    const people = document.getElementById('target-people').value.trim();
+                    if (!people) {
+                        alert('Please describe 2-3 people you want to attend');
+                        return false;
+                    }
+                    const selectedAudiences = document.querySelectorAll('#audience-options .checkbox-option.selected');
+                    if (selectedAudiences.length === 0) {
+                        alert('Please select at least one job role/department that matches your target people');
+                        return false;
+                    }
+                    return true;
+                case 4:
+                    if (!document.querySelector('.option-card.selected[data-group="action"]')) {
+                        alert('Please select what action you want people to take');
+                        return false;
+                    }
+                    if (!document.querySelector('.option-card.selected[data-group="goal"]')) {
+                        alert('Please select your ultimate goal');
+                        return false;
+                    }
+                    return true;
+                case 5:
+                    const capabilities = document.querySelectorAll('#capability-options .checkbox-option.selected');
+                    if (capabilities.length === 0) {
+                        alert('Please select at least one thing you can commit to doing');
+                        return false;
+                    }
+                    return true;
+                case 6:
+                    const timeline = document.getElementById('timeline').value;
+                    if (!timeline) {
+                        alert('Please select when your event is happening');
+                        return false;
+                    }
+                    return true;
+                default:
+                    return true;
+            }
+        }
+
+        function saveStepData(step) {
+            switch(step) {
+                case 1:
+                    selections.topic = document.getElementById('topic').value.trim();
+                    selections.partners = document.getElementById('partners').value.trim();
+                    break;
+                case 2:
+                    selections.attendeeBenefit = document.getElementById('attendee-benefit').value.trim();
+                    break;
+                case 3:
+                    selections.targetPeople = document.getElementById('target-people').value.trim();
+                    selections.audiences = Array.from(document.querySelectorAll('#audience-options .checkbox-option.selected'))
+                        .map(el => ({
+                            role: el.querySelector('strong').textContent,
+                            description: el.querySelector('span').textContent
+                        }));
+                    break;
+                case 4:
+                    selections.action = document.querySelector('.option-card.selected[data-group="action"]')?.querySelector('h4').textContent;
+                    selections.goal = document.querySelector('.option-card.selected[data-group="goal"]')?.querySelector('h4').textContent;
+                    break;
+                case 5:
+                    selections.capabilities = Array.from(document.querySelectorAll('#capability-options .checkbox-option.selected'))
+                        .map(el => ({
+                            capability: el.querySelector('strong').textContent,
+                            description: el.querySelector('span').textContent
+                        }));
+                    break;
+                case 6:
+                    selections.timeline = document.getElementById('timeline').value;
+                    selections.pastExperience = document.getElementById('past-experience').value.trim();
+                    selections.constraints = document.getElementById('constraints').value.trim();
+                    break;
+            }
+        }
+
+        function selectSingle(element, group) {
+            document.querySelectorAll(`.option-card[data-group="${group}"]`).forEach(card => {
+                card.classList.remove('selected');
+            });
+
+            element.classList.add('selected');
+            element.setAttribute('data-group', group);
+        }
+
+        function toggleCheckbox(element) {
+            const checkbox = element.querySelector('input[type="checkbox"]');
+
+            checkbox.checked = !checkbox.checked;
+            element.classList.toggle('selected', checkbox.checked);
+
+            // Handle "nothing major/not sure" in industry trends
+            if (checkbox.id === 'trend-none' && element.closest('#industry-trends-options')) {
+                if (!checkbox.checked) {
+                    document.querySelectorAll('#industry-trends-options .checkbox-option').forEach(opt => {
+                        if (opt !== element) {
+                            opt.querySelector('input').checked = false;
+                            opt.classList.remove('selected');
+                        }
+                    });
+                }
+            } else if (element.closest('#industry-trends-options') && checkbox.id !== 'trend-none') {
+                const noneOption = document.getElementById('trend-none');
+                if (noneOption && noneOption.checked) {
+                    noneOption.checked = false;
+                    noneOption.closest('.checkbox-option').classList.remove('selected');
+                }
+            }
+        }
+
+        // Copy example text function
+        function copyExample(button) {
+            const exampleBox = button.closest('.example-box');
+            const textToCopy = exampleBox.innerText.replace('EXAMPLE:', '').replace('Copy', '').trim();
+
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.textContent = originalText;
+                }, 2000);
+            });
+        }
+
+        // Topic ideation flow functions
+        function helpWithTopic() {
+            // Hide step 1, show topic-1
+            document.querySelector('.step[data-step="1"]').classList.remove('active');
+            document.querySelector('.step[data-step="topic-1"]').classList.add('active');
+            inTopicMode = true;
+        }
+
+        function cancelTopicHelp() {
+            document.querySelector('.step[data-step="topic-1"]').classList.remove('active');
+            document.querySelector('.step[data-step="1"]').classList.add('active');
+            inTopicMode = false;
+        }
+
+        function nextTopicStep() {
+            // Validate topic-goal is selected
+            if (!document.querySelector('.option-card.selected[data-group="topic-goal"]')) {
+                alert('Please select a business goal');
+                return;
+            }
+
+            document.querySelector('.step[data-step="topic-1"]').classList.remove('active');
+            document.querySelector('.step[data-step="topic-2"]').classList.add('active');
+        }
+
+        function prevTopicStep() {
+            const currentTopicStep = document.querySelector('.step.active');
+            const stepAttr = currentTopicStep.getAttribute('data-step');
+
+            if (stepAttr === 'topic-2') {
+                document.querySelector('.step[data-step="topic-2"]').classList.remove('active');
+                document.querySelector('.step[data-step="topic-1"]').classList.add('active');
+            } else if (stepAttr === 'topic-results') {
+                document.querySelector('.step[data-step="topic-results"]').classList.remove('active');
+                document.querySelector('.step[data-step="topic-2"]').classList.add('active');
+            }
+        }
+
+        async function generateTopicIdeas() {
+            // Validate at least one trend is selected
+            const selectedTrends = document.querySelectorAll('#industry-trends-options .checkbox-option.selected');
+            if (selectedTrends.length === 0) {
+                alert('Please select at least one industry trend');
+                return;
+            }
+
+            // Hide current step, show loading
+            document.querySelector('.step[data-step="topic-2"]').classList.remove('active');
+            document.getElementById('loading').classList.add('active');
+
+            try {
+                const topics = await callClaudeForTopics();
+                displayTopicSuggestions(topics);
+            } catch (error) {
+                console.error('Error generating topics:', error);
+                alert('Error generating topic ideas: ' + error.message);
+                document.getElementById('loading').classList.remove('active');
+                document.querySelector('.step[data-step="topic-2"]').classList.add('active');
+            }
+        }
+
+        async function callClaudeForTopics() {
+            const topicGoal = document.querySelector('.option-card.selected[data-group="topic-goal"]')?.querySelector('h4').textContent;
+            const trends = Array.from(document.querySelectorAll('#industry-trends-options .checkbox-option.selected'))
+                .map(el => el.querySelector('strong').textContent);
+
+            const prompt = `You are helping a company brainstorm webinar topics.
+
+COMPANY CONTEXT:
+${selections.companyBackground}
+
+BUSINESS GOAL:
+${topicGoal}
+
+INDUSTRY TRENDS/ISSUES:
+${trends.join(', ')}
+
+Generate 4 specific, compelling webinar topic ideas that:
+1. Align with their business goal
+2. Address the industry trends they selected
+3. Would appeal to their potential customers (based on company context)
+4. Are specific enough to be actionable (not generic like "How to improve X")
+
+For each topic, provide:
+- A clear, compelling title (8-12 words)
+- A brief description of what the webinar would cover (2-3 sentences)
+- Why this topic matters right now
+
+Format as HTML with this structure for each topic:
+<div class="option-card topic-suggestion" onclick="selectSingle(this, 'suggested-topic')">
+    <h4>[Topic Title]</h4>
+    <p><strong>What it covers:</strong> [Description]</p>
+    <p><strong>Why now:</strong> [Relevance]</p>
+</div>
+
+Return ONLY the HTML divs, no other text.`;
+
+            const response = await fetch('/api/generate-strategy', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    prompt: prompt,
+                    maxTokens: 2000
+                })
+            });
+
+            if (!response.ok) {
+                const error = await response.json();
+                throw new Error(error.error || 'Failed to generate topics');
+            }
+
+            const data = await response.json();
+            return data.content;
+        }
+
+        function displayTopicSuggestions(htmlContent) {
+            document.getElementById('loading').classList.remove('active');
+            document.getElementById('topic-suggestions').innerHTML = htmlContent;
+            document.querySelector('.step[data-step="topic-results"]').classList.add('active');
+        }
+
+        function useSelectedTopic() {
+            const selectedTopic = document.querySelector('.topic-suggestion.selected');
+            const customTopic = document.getElementById('custom-topic').value.trim();
+
+            let finalTopic = '';
+
+            if (selectedTopic) {
+                finalTopic = selectedTopic.querySelector('h4').textContent;
+            } else if (customTopic) {
+                finalTopic = customTopic;
+            } else {
+                alert('Please select a suggested topic or write your own');
+                return;
+            }
+
+            // Set the topic in step 1
+            document.getElementById('topic').value = finalTopic;
+
+            // Hide topic results, show step 1
+            document.querySelector('.step[data-step="topic-results"]').classList.remove('active');
+            document.querySelector('.step[data-step="1"]').classList.add('active');
+            inTopicMode = false;
+        }
+
+        async function generateStrategy() {
+            if (!validateStep(6)) {
+                return;
+            }
+            saveStepData(6);
+
+            // Hide current step
+            document.querySelector(`.step[data-step="${currentStep}"]`).classList.remove('active');
+
+            // Show loading
+            document.getElementById('loading').classList.add('active');
+
+            try {
+                const strategy = await callClaudeAPI(selections);
+                displayStrategy(strategy);
+            } catch (error) {
+                console.error('Error generating strategy:', error);
+                alert('Error generating strategy: ' + error.message);
+                document.getElementById('loading').classList.remove('active');
+                document.querySelector(`.step[data-step="${currentStep}"]`).classList.add('active');
+            }
+        }
+
+        async function callClaudeAPI(selections) {
+            const prompt = buildPrompt(selections);
+
+            const response = await fetch('/api/generate-strategy', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    prompt: prompt,
+                    maxTokens: 16000
+                })
+            });
+
+            if (!response.ok) {
+                const error = await response.json();
+                throw new Error(error.error || 'Failed to generate strategy');
+            }
+
+            const data = await response.json();
+            return data.content;
+        }
+
+        function buildPrompt(sel) {
+            const eventDate = new Date(sel.timeline);
+            const today = new Date();
+            const daysUntil = Math.ceil((eventDate - today) / (1000 * 60 * 60 * 24));
+
+            return `You are a marketing strategist helping someone plan their webinar or event promotion. They've answered questions as a complete novice, so your strategy needs to be specific, actionable, and assume zero marketing knowledge.
+
+CONTEXT GATHERED:
+
+**Company background:**
+${sel.companyBackground}
+
+**What they're promoting:**
+Topic: ${sel.topic}
+${sel.partners ? 'Partners involved: ' + sel.partners : 'No partners'}
+
+**Why someone would attend (the value proposition):**
+${sel.attendeeBenefit}
+
+**Who they want to reach:**
+Specific people in mind: ${sel.targetPeople}
+Job roles and departments: ${sel.audiences.map(a => a.role).join(', ')}
+
+**Desired action:** ${sel.action}
+**Ultimate goal:** ${sel.goal}
+
+**What they can actually do (capabilities):**
+${sel.capabilities.map(c => c.capability).join(', ')}
+
+**Timeline:**
+Event date: ${sel.timeline} (${daysUntil} days from now)
+
+**Past experience:**
+${sel.pastExperience || 'No past data provided'}
+
+**Constraints and concerns:**
+${sel.constraints || 'None mentioned'}
+
+---
+
+**CRITICAL EMAIL SEGMENTATION GUIDANCE:**
+Elker works with diverse client types: workplaces/businesses, universities, schools, government agencies, aged care providers, and social services organizations.
+
+For email campaigns, you MUST provide specific segmentation advice:
+1. Analyze the webinar topic and target audiences they selected
+2. Determine which client segments are most relevant (e.g., if topic is about student misconduct, focus on universities/schools; if about workplace investigations, focus on businesses/government)
+3. Provide clear segmentation criteria for CRM filtering
+4. If the topic is broadly relevant across ALL Elker client types, you MAY recommend broader reach, but explain WHY it's appropriate and suggest personalizing by segment
+
+**IMPORTANT STYLE NOTES:**
+- Write in a professional, consultative tone (not salesy or alarmist)
+- Use "you" language throughout
+- No jargon - if you must use marketing terms, explain them simply
+- Be educational - explain WHY things work, not just WHAT to do
+- Focus on targeted outreach to the specific audiences they identified
+- If they have partners, emphasize leveraging partner credibility and lists
+- Be honest and realistic about what will and won't work given their constraints
+
+**FORMAT - RETURN VALID JSON ONLY:**
+
+Return ONLY valid JSON (no markdown, no explanatory text before or after). Use this exact structure:
+
+{
+  "segmentation": {
+    "why": "Explanation of why segmentation matters for this specific topic",
+    "segments": [
+      {
+        "segment": "Segment name (e.g., Universities, Government)",
+        "relevance": "Why this segment cares about the topic",
+        "painPoints": ["Pain point 1", "Pain point 2", "Pain point 3"],
+        "crmCriteria": "How to identify this segment in CRM (e.g., 'Contacts tagged as Higher Education')"
+      }
+    ]
+  },
+  "messaging": {
+    "segments": [
+      {
+        "segment": "Segment name (must match segmentation.segments)",
+        "why": "Deep explanation of why content will resonate with this segment",
+        "angle": "The messaging angle/framing (e.g., 'compliance focus', 'ROI focus')",
+        "tone": "Language and tone guidance for this segment",
+        "templates": [
+          {
+            "id": "template_1",
+            "type": "email_subject",
+            "text": "Subject line text",
+            "why": "Explanation of why this subject line works for this segment"
+          },
+          {
+            "id": "template_2",
+            "type": "email_body",
+            "text": "Full email body text (2-3 paragraphs)",
+            "why": "Why this email body resonates"
+          },
+          {
+            "id": "template_3",
+            "type": "linkedin_post",
+            "text": "LinkedIn post text",
+            "why": "Why this works on LinkedIn"
+          },
+          {
+            "id": "template_4",
+            "type": "cta",
+            "text": "Call to action text",
+            "why": "Why this CTA is effective"
+          }
+        ]
+      }
+    ]
+  },
+  "timeline": [
+    {
+      "when": "Specific date range or week (e.g., 'Week 1: Dec 1-7' or '2 weeks before event')",
+      "action": "Specific action to take",
+      "platform": "Email | LinkedIn | Direct Outreach | Partner Channel",
+      "templateId": "template_1"
+    }
+  ],
+  "followUp": {
+    "why": "Explanation of why post-event follow-up matters for achieving their goal: ${sel.goal}",
+    "sequences": [
+      {
+        "audience": "Attended",
+        "strategy": "Strategy for attendees",
+        "timeline": [
+          {
+            "when": "Day 1",
+            "action": "What to do",
+            "templateId": "followup_template_1"
+          }
+        ],
+        "templates": [
+          {
+            "id": "followup_template_1",
+            "type": "email_subject | email_body | linkedin_message",
+            "text": "Template text",
+            "why": "Why this works"
+          }
+        ]
+      },
+      {
+        "audience": "Registered but didn't attend",
+        "strategy": "Strategy for no-shows",
+        "timeline": [...],
+        "templates": [...]
+      },
+      {
+        "audience": "Didn't register",
+        "strategy": "Strategy for non-registrants",
+        "timeline": [...],
+        "templates": [...]
+      }
+    ]
+  },
+  "metrics": {
+    "reach": {
+      "target": "50-200 | 200-500 | 500-800+",
+      "explanation": "Why this reach target is appropriate"
+    },
+    "registrations": {
+      "conservative": "Number",
+      "optimistic": "Number",
+      "explanation": "Reasoning behind these numbers"
+    },
+    "attendance": {
+      "conservative": "Number",
+      "optimistic": "Number",
+      "explanation": "Based on industry benchmarks"
+    },
+    "conversion": {
+      "conservative": "Number",
+      "optimistic": "Number",
+      "explanation": "Expected outcomes for their goal: ${sel.goal}"
+    }
+  },
+  "nextActions": [
+    {
+      "priority": 1,
+      "action": "First specific action to do today",
+      "details": "Step-by-step how to do it"
+    },
+    {
+      "priority": 2,
+      "action": "Second specific action",
+      "details": "Step-by-step how to do it"
+    },
+    {
+      "priority": 3,
+      "action": "Third specific action",
+      "details": "Step-by-step how to do it"
+    }
+  ]
+}
+
+CRITICAL: Return ONLY the JSON object. No markdown code blocks, no explanatory text, just pure JSON that can be parsed with JSON.parse().`;
+        }
+
+        // Store templates globally for timeline reference
+        let allTemplates = {};
+
+        function displayStrategy(jsonResponse) {
+            document.getElementById('loading').classList.remove('active');
+
+            try {
+                // Clean the response - remove markdown code blocks if present
+                let cleanedResponse = jsonResponse.trim();
+
+                // Remove markdown code blocks
+                if (cleanedResponse.startsWith('```json')) {
+                    cleanedResponse = cleanedResponse.replace(/^```json\s*/, '').replace(/\s*```$/, '');
+                } else if (cleanedResponse.startsWith('```')) {
+                    cleanedResponse = cleanedResponse.replace(/^```\s*/, '').replace(/\s*```$/, '');
+                }
+
+                // Parse JSON response
+                const strategy = JSON.parse(cleanedResponse);
+
+                // Build template lookup
+                buildTemplateLookup(strategy);
+
+                // Render all sections
+                const html = `
+                    ${renderSegmentation(strategy.segmentation)}
+                    ${renderMessaging(strategy.messaging)}
+                    ${renderTimeline(strategy.timeline)}
+                    ${renderFollowUp(strategy.followUp)}
+                    ${renderMetrics(strategy.metrics)}
+                    ${renderNextActions(strategy.nextActions)}
+                `;
+
+                document.getElementById('strategy-content').innerHTML = html;
+                document.getElementById('results').classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } catch (error) {
+                console.error('Error parsing strategy:', error);
+                console.error('Raw response:', jsonResponse);
+                document.getElementById('strategy-content').innerHTML = `
+                    <div class="recommendation-box" style="border-color: #d9534f; background: #f9e8e8;">
+                        <h3 style="color: #d9534f;">Error Loading Strategy</h3>
+                        <p>There was an error parsing the strategy response. Please try again.</p>
+                        <p style="font-size: 0.9em; color: #999;"><strong>Error:</strong> ${error.message}</p>
+                        <details style="margin-top: 15px;">
+                            <summary style="cursor: pointer; color: #5a6c62;">Show raw response (for debugging)</summary>
+                            <pre style="background: #f5f5f5; padding: 15px; overflow: auto; font-size: 0.8em; margin-top: 10px;">${jsonResponse.substring(0, 1000)}...</pre>
+                        </details>
+                    </div>
+                `;
+                document.getElementById('results').classList.add('active');
+            }
+        }
+
+        function buildTemplateLookup(strategy) {
+            allTemplates = {};
+
+            // Add messaging templates
+            if (strategy.messaging && strategy.messaging.segments) {
+                strategy.messaging.segments.forEach(seg => {
+                    if (seg.templates) {
+                        seg.templates.forEach(tpl => {
+                            allTemplates[tpl.id] = tpl;
+                        });
+                    }
+                });
+            }
+
+            // Add follow-up templates
+            if (strategy.followUp && strategy.followUp.sequences) {
+                strategy.followUp.sequences.forEach(seq => {
+                    if (seq.templates) {
+                        seq.templates.forEach(tpl => {
+                            allTemplates[tpl.id] = tpl;
+                        });
+                    }
+                });
+            }
+        }
+
+        function renderSegmentation(segmentation) {
+            if (!segmentation) return '';
+
+            const segmentsHtml = segmentation.segments.map(seg => `
+                <div class="segment-card">
+                    <h4>${seg.segment}</h4>
+                    <p><strong>Why they care:</strong> ${seg.relevance}</p>
+                    <p><strong>CRM Criteria:</strong> ${seg.crmCriteria}</p>
+                    <p><strong>Pain Points:</strong></p>
+                    <ul class="pain-points">
+                        ${seg.painPoints.map(p => `<li>${p}</li>`).join('')}
+                    </ul>
+                </div>
+            `).join('');
+
+            return `
+                <div class="accordion-section">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h3>Audience Segmentation Strategy</h3>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>${segmentation.why}</p>
+                        ${segmentsHtml}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderMessaging(messaging) {
+            if (!messaging) return '';
+
+            const segmentsHtml = messaging.segments.map(seg => {
+                const templatesHtml = seg.templates.map(tpl => `
+                    <div class="template-item">
+                        <span class="template-label">${formatTemplateType(tpl.type)}</span>
+                        <div class="ai-content" id="${tpl.id}">
+                            ${tpl.text.trim()}
+                            <button class="copy-btn" onclick="copyAIContent(this)">Copy</button>
+                        </div>
+                        <p style="font-size: 0.9em; color: #5a6c62; margin-top: 8px;"><em>Why this works:</em> ${tpl.why}</p>
+                    </div>
+                `).join('');
+
+                return `
+                    <div class="segment-card">
+                        <h4>${seg.segment}</h4>
+                        <p><strong>Why this resonates:</strong> ${seg.why}</p>
+                        <p><strong>Messaging angle:</strong> ${seg.angle}</p>
+                        <p><strong>Tone & language:</strong> ${seg.tone}</p>
+                        <div style="margin-top: 20px;">
+                            <strong style="color: #2d5f4f;">Message Templates:</strong>
+                            ${templatesHtml}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            return `
+                <div class="accordion-section">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h3>Content & Messaging Strategy</h3>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        ${segmentsHtml}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderTimeline(timeline) {
+            if (!timeline || timeline.length === 0) return '';
+
+            const rows = timeline.map(item => {
+                return `
+                    <tr>
+                        <td>${item.when}</td>
+                        <td>${item.action}</td>
+                        <td>${item.platform}</td>
+                    </tr>
+                `;
+            }).join('');
+
+            return `
+                <div class="accordion-section">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h3>Campaign Timeline</h3>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <table class="timeline-table">
+                            <thead>
+                                <tr>
+                                    <th>When</th>
+                                    <th>Action Item</th>
+                                    <th>Target Platform</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${rows}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderFollowUp(followUp) {
+            if (!followUp) return '';
+
+            const sequencesHtml = followUp.sequences.map(seq => {
+                const timelineHtml = seq.timeline.map(item => `
+                    <tr>
+                        <td>${item.when}</td>
+                        <td>${item.action}</td>
+                        <td><button class="copy-btn" onclick="copyTemplateById('${item.templateId}')">Copy</button></td>
+                    </tr>
+                `).join('');
+
+                const templatesHtml = seq.templates.map(tpl => `
+                    <div class="template-item">
+                        <span class="template-label">${formatTemplateType(tpl.type)}</span>
+                        <div class="ai-content" id="${tpl.id}">
+                            ${tpl.text.trim()}
+                            <button class="copy-btn" onclick="copyAIContent(this)">Copy</button>
+                        </div>
+                        <p style="font-size: 0.9em; color: #5a6c62; margin-top: 8px;"><em>Why this works:</em> ${tpl.why}</p>
+                    </div>
+                `).join('');
+
+                return `
+                    <div class="segment-card">
+                        <h4>For: ${seq.audience}</h4>
+                        <p>${seq.strategy}</p>
+
+                        <table class="timeline-table" style="margin-top: 15px;">
+                            <thead>
+                                <tr>
+                                    <th>When</th>
+                                    <th>Action</th>
+                                    <th>Template</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${timelineHtml}
+                            </tbody>
+                        </table>
+
+                        <div style="margin-top: 20px;">
+                            <strong style="color: #2d5f4f;">Follow-up Templates:</strong>
+                            ${templatesHtml}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            return `
+                <div class="accordion-section">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h3>Post-Event Follow-Up Strategy</h3>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>${followUp.why}</p>
+                        ${sequencesHtml}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderMetrics(metrics) {
+            if (!metrics) return '';
+
+            return `
+                <div class="accordion-section">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h3>Recommended Success Metrics</h3>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="segment-card">
+                            <h4>Target Reach</h4>
+                            <p><strong>${metrics.reach.target} contacts</strong></p>
+                            <p>${metrics.reach.explanation}</p>
+                        </div>
+
+                        <div class="segment-card">
+                            <h4>Expected Registrations</h4>
+                            <p><strong>${metrics.registrations.conservative} - ${metrics.registrations.optimistic}</strong></p>
+                            <p>${metrics.registrations.explanation}</p>
+                        </div>
+
+                        <div class="segment-card">
+                            <h4>Expected Attendance</h4>
+                            <p><strong>${metrics.attendance.conservative} - ${metrics.attendance.optimistic}</strong></p>
+                            <p>${metrics.attendance.explanation}</p>
+                        </div>
+
+                        <div class="segment-card">
+                            <h4>Expected Conversions</h4>
+                            <p><strong>${metrics.conversion.conservative} - ${metrics.conversion.optimistic}</strong></p>
+                            <p>${metrics.conversion.explanation}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderNextActions(actions) {
+            if (!actions || actions.length === 0) return '';
+
+            const actionsHtml = actions.map(action => `
+                <div class="segment-card">
+                    <h4>Priority ${action.priority}: ${action.action}</h4>
+                    <p>${action.details}</p>
+                </div>
+            `).join('');
+
+            return `
+                <div class="accordion-section">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h3>Next 3 Actions</h3>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        ${actionsHtml}
+                    </div>
+                </div>
+            `;
+        }
+
+        function formatTemplateType(type) {
+            const types = {
+                'email_subject': 'Email Subject Line',
+                'email_body': 'Email Body',
+                'linkedin_post': 'LinkedIn Post',
+                'linkedin_message': 'LinkedIn Message',
+                'cta': 'Call to Action'
+            };
+            return types[type] || type;
+        }
+
+        function copyTemplateById(templateId) {
+            const template = allTemplates[templateId];
+            if (!template) {
+                alert('Template not found');
+                return;
+            }
+
+            navigator.clipboard.writeText(template.text).then(() => {
+                // Find all copy buttons for this template and update them
+                const buttons = document.querySelectorAll(`button[onclick="copyTemplateById('${templateId}')"]`);
+                buttons.forEach(button => {
+                    const originalText = button.textContent;
+                    button.textContent = 'Copied!';
+                    setTimeout(() => {
+                        button.textContent = originalText;
+                    }, 2000);
+                });
+            });
+        }
+
+        function copyToClipboard() {
+            const content = document.getElementById('strategy-content').innerText;
+            navigator.clipboard.writeText(content).then(() => {
+                alert('Strategy copied to clipboard!');
+            });
+        }
+
+        function copyRecommendation(button) {
+            const box = button.closest('.recommendation-box');
+            const textToCopy = box.innerText.replace('Copy', '').trim();
+
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.textContent = originalText;
+                }, 2000);
+            });
+        }
+
+        function copyAIContent(button) {
+            const content = button.closest('.ai-content');
+            const textToCopy = content.innerText.replace('Copy', '').trim();
+
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.textContent = originalText;
+                }, 2000);
+            });
+        }
+
+        function toggleAccordion(header) {
+            const section = header.parentElement;
+            section.classList.toggle('collapsed');
+        }
+
+        function saveCampaign() {
+            const campaignName = prompt('Enter a name for this campaign:');
+            if (!campaignName) return;
+
+            const campaign = {
+                name: campaignName,
+                date: new Date().toISOString(),
+                selections: selections,
+                strategy: document.getElementById('strategy-content').innerHTML
+            };
+
+            // Get existing campaigns
+            const campaigns = JSON.parse(localStorage.getItem('elkerCampaigns') || '[]');
+            campaigns.push(campaign);
+            localStorage.setItem('elkerCampaigns', JSON.stringify(campaigns));
+
+            alert(`Campaign "${campaignName}" saved successfully!`);
+        }
+
+        function loadCampaign() {
+            const campaigns = JSON.parse(localStorage.getItem('elkerCampaigns') || '[]');
+
+            if (campaigns.length === 0) {
+                alert('No saved campaigns found.');
+                return;
+            }
+
+            // Create a selection modal
+            let options = campaigns.map((c, i) =>
+                `${i + 1}. ${c.name} (${new Date(c.date).toLocaleDateString()})`
+            ).join('\n');
+
+            const choice = prompt(`Select a campaign to load:\n\n${options}\n\nEnter the number (or "delete" to manage campaigns):`);
+
+            if (!choice) return;
+
+            if (choice.toLowerCase() === 'delete') {
+                manageCampaigns(campaigns);
+                return;
+            }
+
+            const index = parseInt(choice) - 1;
+            if (index >= 0 && index < campaigns.length) {
+                const campaign = campaigns[index];
+                document.getElementById('strategy-content').innerHTML = campaign.strategy;
+                document.getElementById('results').classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                alert(`Campaign "${campaign.name}" loaded successfully!`);
+            } else {
+                alert('Invalid selection.');
+            }
+        }
+
+        function manageCampaigns(campaigns) {
+            let options = campaigns.map((c, i) =>
+                `${i + 1}. ${c.name} (${new Date(c.date).toLocaleDateString()})`
+            ).join('\n');
+
+            const choice = prompt(`Delete a campaign:\n\n${options}\n\nEnter the number to delete (or cancel):`);
+            if (!choice) return;
+
+            const index = parseInt(choice) - 1;
+            if (index >= 0 && index < campaigns.length) {
+                const deleted = campaigns.splice(index, 1)[0];
+                localStorage.setItem('elkerCampaigns', JSON.stringify(campaigns));
+                alert(`Campaign "${deleted.name}" deleted.`);
+                loadCampaign();
+            }
+        }
+
+        function downloadPDF() {
+            // Create a clean version for PDF
+            const content = document.getElementById('strategy-content').cloneNode(true);
+
+            // Remove copy buttons
+            content.querySelectorAll('.copy-btn').forEach(btn => btn.remove());
+
+            // Open accordions for PDF
+            content.querySelectorAll('.accordion-section').forEach(section => {
+                section.classList.remove('collapsed');
+            });
+
+            // Create printable HTML
+            const printWindow = window.open('', '', 'height=800,width=800');
+            printWindow.document.write(`
+                <html>
+                <head>
+                    <title>Marketing Strategy</title>
+                    <style>
+                        body {
+                            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                            line-height: 1.6;
+                            color: #2c3e50;
+                            padding: 40px;
+                            max-width: 800px;
+                            margin: 0 auto;
+                        }
+                        h2 { color: #2d5f4f; font-family: Georgia, serif; margin-top: 30px; }
+                        h3 { color: #2d5f4f; font-family: Georgia, serif; margin-top: 25px; }
+                        .accordion-header { display: none; }
+                        .accordion-content { padding: 0; display: block !important; }
+                        .accordion-section { border: 1px solid #d4e0d8; margin-bottom: 20px; padding: 20px; }
+                        .recommendation-box { background: #f9faf9; padding: 20px; margin: 15px 0; border: 1px solid #d4e0d8; }
+                        .ai-content { background: white; padding: 15px; border: 1px solid #d4e0d8; margin: 10px 0; }
+                        ul { padding-left: 20px; }
+                        li { margin: 8px 0; }
+                        strong { color: #2d5f4f; }
+                        p { margin-bottom: 15px; }
+                    </style>
+                </head>
+                <body>
+                    <h1>Elker Marketing Strategy</h1>
+                    ${content.innerHTML}
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
+            printWindow.focus();
+            setTimeout(() => {
+                printWindow.print();
+            }, 250);
+        }
+
+        function startOver() {
+            if (confirm('Start over? This will clear your current strategy.')) {
+                location.reload();
+            }
+        }
+
+        // Initialize
+        updateProgress();
+    </script>
+</body>
+</html>
