@@ -1675,8 +1675,18 @@ CRITICAL: Return ONLY the JSON object. No markdown code blocks, no explanatory t
             document.getElementById('loading').classList.remove('active');
 
             try {
+                // Clean the response - remove markdown code blocks if present
+                let cleanedResponse = jsonResponse.trim();
+
+                // Remove markdown code blocks
+                if (cleanedResponse.startsWith('```json')) {
+                    cleanedResponse = cleanedResponse.replace(/^```json\s*/, '').replace(/\s*```$/, '');
+                } else if (cleanedResponse.startsWith('```')) {
+                    cleanedResponse = cleanedResponse.replace(/^```\s*/, '').replace(/\s*```$/, '');
+                }
+
                 // Parse JSON response
-                const strategy = JSON.parse(jsonResponse);
+                const strategy = JSON.parse(cleanedResponse);
 
                 // Build template lookup
                 buildTemplateLookup(strategy);
@@ -1696,11 +1706,16 @@ CRITICAL: Return ONLY the JSON object. No markdown code blocks, no explanatory t
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             } catch (error) {
                 console.error('Error parsing strategy:', error);
+                console.error('Raw response:', jsonResponse);
                 document.getElementById('strategy-content').innerHTML = `
                     <div class="recommendation-box" style="border-color: #d9534f; background: #f9e8e8;">
                         <h3 style="color: #d9534f;">Error Loading Strategy</h3>
                         <p>There was an error parsing the strategy response. Please try again.</p>
-                        <p style="font-size: 0.9em; color: #999;">${error.message}</p>
+                        <p style="font-size: 0.9em; color: #999;"><strong>Error:</strong> ${error.message}</p>
+                        <details style="margin-top: 15px;">
+                            <summary style="cursor: pointer; color: #5a6c62;">Show raw response (for debugging)</summary>
+                            <pre style="background: #f5f5f5; padding: 15px; overflow: auto; font-size: 0.8em; margin-top: 10px;">${jsonResponse.substring(0, 1000)}...</pre>
+                        </details>
                     </div>
                 `;
                 document.getElementById('results').classList.add('active');
